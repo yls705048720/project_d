@@ -9,7 +9,7 @@
 		
 
 	<dependencies>
-		<!-- spring framework  begin -->
+			<!-- spring framework  begin -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
@@ -289,6 +289,7 @@
 		    <version>2.2.1</version>
 		</dependency>
 		<!-- quartz 任务调度 end -->
+	
 	</dependencies>
 
 

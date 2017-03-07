@@ -18,7 +18,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		      classpath:applicationContext.xml
+		      classpath:spring-context.xml
 		      <!-- /WEB-INF/classes/mvc-servlet.xml -->
 		 </param-value>
 	</context-param>
@@ -28,7 +28,7 @@
 
 	<context-param> 
 		<param-name>log4jConfigLocation</param-name>
-		 <param-value>/WEB-INF/log4j.xml</param-value> 
+		 <param-value>classpath:</param-value> 
 	</context-param> 
 	<context-param>
 		 <param-name>log4jRefreshInterval</param-name> 
@@ -43,9 +43,14 @@
 		<param-value>ssm.root</param-value> 
 	</context-param>
 	 -->
+	 
 	<!-- 配置静态资源 -->
-	<!-- <servlet-mapping> <servlet-name>default</servlet-name> <url-pattern>/static/*</url-pattern> 
-		</servlet-mapping> -->
+	<!-- 
+	<servlet-mapping>
+		<servlet-name>default</servlet-name> 
+		<url-pattern>/static/*</url-pattern> 
+	</servlet-mapping> 
+	-->
 
 
 	<!-- 配置springmvc的前端控制器 -->
@@ -55,7 +60,7 @@
 
 		<init-param> 
 			<param-name>contextConfigLocation</param-name>
-			 <param-value>classpath:springmvc-servlet.xml</param-value> 
+			 <param-value>classpath:spring-servlet.xml</param-value> 
 		</init-param>
 
 		<!-- <load-on-startup>1</load-on-startup> -->

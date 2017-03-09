@@ -33,14 +33,26 @@
      </bean>
 	-->
 	<!-- 配置数据源 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/project_d" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
+		<property name="initialSize" value="20"/>
+		<property name="maxActive" value="100"/>
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter"/>
+			</list>
+		</property>
 	</bean>
-
+	
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="slowSqlMillis" value="1000" />
+		<property name="logSlowSql" value="true" />
+		<property name="mergeSql" value="true" />
+	</bean>
 
 	<!-- 配置Session工厂 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -51,7 +63,6 @@
 		<!-- 多个包之间可以用 逗号 或 分号 分隔 -->
 		<property name="typeAliasesPackage" 
 		value="com.yls.bus.sys.dao.entity,com.yls.bus.other"></property>
-
 	</bean>
 
 	<!-- 自动扫描所有的Mapper接口与文件 -->

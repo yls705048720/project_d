@@ -23,7 +23,7 @@
 
 	    <javaClientGenerator targetPackage="com.yls.bus.sys.dao.mapper" targetProject="project_d" type="XMLMAPPER" />
 	    
-	
+		<!-- 
 			<table schema="" catalog="" tableName="sys_user" domainObjectName="SysUser"  >
 		      <columnOverride column="USER_ID" javaType="java.lang.String" jdbcType="VARCHAR"  />
 		      <columnOverride column="USERNAME"  javaType="java.lang.String" jdbcType="VARCHAR"  />
@@ -72,6 +72,12 @@
 	      <columnOverride column="value" javaType="java.lang.String"  jdbcType="VARCHAR"  />
 	      <columnOverride column="status" javaType="java.lang.String"  jdbcType="VARCHAR"  />
 	      <columnOverride column="remark" javaType="java.lang.String"  jdbcType="VARCHAR"  />
+	    </table>
+	    -->
+	    <table schema="" catalog="" tableName="v_user_menu" domainObjectName="UserMenuView"  >
+	      <columnOverride column="user_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+	      <columnOverride column="menu_perms"  javaType="java.lang.String" jdbcType="VARCHAR"  />
+	      <columnOverride column="menu_id" javaType="java.lang.String"  jdbcType="VARCHAR"  />
 	    </table>
 
   </context>

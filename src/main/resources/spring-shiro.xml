@@ -46,6 +46,7 @@
 	        <value>
 	        	/statics/**=anon
 	        	/login.html=anon
+	        	/materialize/*=anon
 	        	/sys/login=anon
 	        	/captcha.jpg=anon
 	        	/**=authc

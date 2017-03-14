@@ -103,6 +103,7 @@ public class SysLoginCtrl {
 	 * ÍË³ö
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(){
 		YlsShiroUtils.logout();

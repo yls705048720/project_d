@@ -1,84 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-<classPathEntry
-			location="C:\Users\YLS\.m2\repository\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" /> 
-  
-  <context id="project_d"  targetRuntime="MyBatis3">
+	<classPathEntry
+		location="C:\Users\YLS\.m2\repository\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" />
 
-	    <jdbcConnection 
-	    		connectionURL="jdbc:mysql://localhost:3306/project_d" 
-	     		driverClass="com.mysql.jdbc.Driver" 
-			    password="root" 
-			    userId="root" />
-			    
-    	<javaTypeResolver>
+	<context id="project_d" targetRuntime="MyBatis3">
+
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/project_d"
+			driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
+
+		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
-		
-	    <javaModelGenerator targetPackage="com.yls.bus.sys.dao.entity" targetProject="project_d" />
-	    
 
-	    <sqlMapGenerator targetPackage="com.yls.bus.sys.dao.mapper" targetProject="project_d" />
+		<javaModelGenerator targetPackage="com.yls.bus.sys.dao.entity"
+			targetProject="project_d" />
 
-	    <javaClientGenerator targetPackage="com.yls.bus.sys.dao.mapper" targetProject="project_d" type="XMLMAPPER" />
-	    
-		<!-- 
-			<table schema="" catalog="" tableName="sys_user" domainObjectName="SysUser"  >
-		      <columnOverride column="USER_ID" javaType="java.lang.String" jdbcType="VARCHAR"  />
-		      <columnOverride column="USERNAME"  javaType="java.lang.String" jdbcType="VARCHAR"  />
-		      <columnOverride column="PASSWORD" javaType="java.lang.String"  jdbcType="VARCHAR"  />
-		      <columnOverride column="EMAIL" javaType="java.lang.String" jdbcType="VARCHAR" />
-		      <columnOverride column="MOBILE" javaType="java.lang.String" jdbcType="VARCHAR"  />
-		      <columnOverride column="STATUS" javaType="java.lang.String" jdbcType="VARCHAR"  />
-		      <columnOverride column="CREATE_TIME"  javaType="java.util.Date" />
-		    </table>
-		    
-		 <table schema="" catalog="" tableName="sys_role" domainObjectName="SysRole"  >
-	      <columnOverride column="role_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="role_name"  javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="remark" javaType="java.lang.String"  jdbcType="VARCHAR"  />
-	      <columnOverride column="create_time"  javaType="java.util.Date" />
-	    </table>
-	    
-	    	    <table schema="" catalog="" tableName="sys_menu" domainObjectName="SysMenu"  >
-	      <columnOverride column="menu_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="parent_id"  javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="name" javaType="java.lang.String"  jdbcType="VARCHAR"  />
-	      <columnOverride column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
-	      <columnOverride column="perms" javaType="java.lang.String" jdbcType="VARCHAR" />
-	      <columnOverride column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
-	      <columnOverride column="icon" javaType="java.lang.String" jdbcType="VARCHAR" />
-	      <columnOverride column="order_num" javaType="java.lang.String" jdbcType="VARCHAR" />
-	    </table>
-	    
-	    
-	    	    <table schema="" catalog="" tableName="sys_role_menu" domainObjectName="SysRoleMenu"  >
-	      <columnOverride column="id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="role_id"  javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="menu_id" javaType="java.lang.String"  jdbcType="VARCHAR"  />
-	    </table>
-	    
-	    	    <table schema="" catalog="" tableName="sys_user_role" domainObjectName="SysUserRole"  >
-	      <columnOverride column="id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="user_id"  javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="role_id" javaType="java.lang.String"  jdbcType="VARCHAR"  />
-	    </table>
 
-	    
-	    <table schema="" catalog="" tableName="sys_config" domainObjectName="SysConfig"  >
-	      <columnOverride column="id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="key"  javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="value" javaType="java.lang.String"  jdbcType="VARCHAR"  />
-	      <columnOverride column="status" javaType="java.lang.String"  jdbcType="VARCHAR"  />
-	      <columnOverride column="remark" javaType="java.lang.String"  jdbcType="VARCHAR"  />
-	    </table>
-	    -->
-	    <table schema="" catalog="" tableName="v_user_menu" domainObjectName="UserMenuView"  >
-	      <columnOverride column="user_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="menu_perms"  javaType="java.lang.String" jdbcType="VARCHAR"  />
-	      <columnOverride column="menu_id" javaType="java.lang.String"  jdbcType="VARCHAR"  />
-	    </table>
+		<sqlMapGenerator targetPackage="com.yls.bus.sys.dao.mapper"
+			targetProject="project_d" />
 
-  </context>
+		<javaClientGenerator targetPackage="com.yls.bus.sys.dao.mapper"
+			targetProject="project_d" type="XMLMAPPER" />
+
+		<!-- <table schema="" catalog="" tableName="sys_user" domainObjectName="SysUser" 
+			> <columnOverride column="USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="USERNAME" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="EMAIL" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="MOBILE" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="STATUS" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="CREATE_TIME" javaType="java.util.Date" /> </table> 
+			<table schema="" catalog="" tableName="sys_role" domainObjectName="SysRole" 
+			> <columnOverride column="role_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="role_name" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="remark" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="create_time" javaType="java.util.Date" /> </table> 
+			<table schema="" catalog="" tableName="sys_menu" domainObjectName="SysMenu" 
+			> <columnOverride column="menu_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="parent_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="name" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="url" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="perms" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="type" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="icon" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="order_num" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> </table> <table schema="" catalog="" tableName="sys_role_menu" domainObjectName="SysRoleMenu" 
+			> <columnOverride column="id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="role_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="menu_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> </table> <table schema="" catalog="" tableName="sys_user_role" domainObjectName="SysUserRole" 
+			> <columnOverride column="id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="role_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> </table> <table schema="" catalog="" tableName="sys_config" domainObjectName="SysConfig" 
+			> <columnOverride column="id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="key" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="value" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="status" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="remark" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> </table> -->
+		<table schema="" catalog="" tableName="v_user_menu"
+			domainObjectName="UserMenuView">
+			<columnOverride column="user_id" javaType="java.lang.String"
+				jdbcType="VARCHAR" />
+			<columnOverride column="menu_perms" javaType="java.lang.String"
+				jdbcType="VARCHAR" />
+			<columnOverride column="menu_id" javaType="java.lang.String"
+				jdbcType="VARCHAR" />
+		</table>
+
+	</context>
 </generatorConfiguration>

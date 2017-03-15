@@ -127,7 +127,7 @@ var vm = new Vue({
 	},
 	methods: {
 		getMenuList: function (event) {
-			$.getJSON("sys/menu/user?_"+$.now(), function(r){
+			$.getJSON("sysMenu/user?_"+$.now(), function(r){
 				vm.menuList = r.menuList;
 			});
 		},

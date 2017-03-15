@@ -37,7 +37,7 @@ public interface YlsShiroUtils {
 	 * @return
 	 */
 	public static SysUser getUserEntity() {
-		return (SysUser)SecurityUtils.getSubject().getPrincipal();
+		return (SysUser)SecurityUtils.getSubject().getSession().getAttribute("user");
 	}
 
 	/**

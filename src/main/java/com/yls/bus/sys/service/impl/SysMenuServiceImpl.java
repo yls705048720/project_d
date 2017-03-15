@@ -3,6 +3,7 @@
  */
 package com.yls.bus.sys.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,10 @@ import com.yls.bus.sys.dao.entity.SysMenu;
 import com.yls.bus.sys.dao.entity.SysMenuExample;
 import com.yls.bus.sys.dao.mapper.SysMenuMapper;
 import com.yls.bus.sys.service.SysMenuService;
+import com.yls.bus.sys.service.SysUserService;
 import com.yls.freamwork.utils.YlsIdGenerator;
+
+import freemarker.core.ReturnInstruction.Return;
 
 /**
  * @author YLS
@@ -30,17 +34,31 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Autowired
 	private SysMenuMapper sysMenuMapper;
 	
-	private SysMenuExample sysMenuExample = new SysMenuExample();
-	
+	@Autowired
+	private SysUserService sysUserService;
+		
 	public List<SysMenu> queryListParentId(String parentId, List<String> menuIdList) {
 		// TODO Auto-generated method stub
+		SysMenuExample sysMenuExample = new SysMenuExample();
 		SysMenuExample.Criteria criteria = sysMenuExample.createCriteria();
 		criteria.andParentIdEqualTo(parentId);
-		return sysMenuMapper.selectByExample(sysMenuExample);
+		List<SysMenu> menuList=sysMenuMapper.selectByExample(sysMenuExample);
+		if(menuIdList == null){
+			return menuList;
+		}
+		
+		List<SysMenu> userMenuList = new ArrayList<>();
+		for(SysMenu sysMenu: menuList){
+			if(menuIdList.contains(sysMenu.getMenuId())){
+				userMenuList.add(sysMenu);
+			}
+		}
+		return userMenuList;
 	}
 
 	public List<SysMenu> queryNotButtonList() {
 		// TODO Auto-generated method stub
+		SysMenuExample sysMenuExample = new SysMenuExample();
 		SysMenuExample.Criteria criteria = sysMenuExample.createCriteria();
 		criteria.andTypeNotEqualTo("2");
 		return sysMenuMapper.selectByExample(sysMenuExample);
@@ -48,9 +66,15 @@ public class SysMenuServiceImpl implements SysMenuService {
 
 	public List<SysMenu> getUserMenuList(String userId) {
 		// TODO Auto-generated method stub
-		SysMenuExample.Criteria criteria = sysMenuExample.createCriteria();
-		criteria.andTypeEqualTo("1");
-		return sysMenuMapper.selectByExample(sysMenuExample);
+		if(userId != null){
+			if(userId.equals("1")){
+				return getAllMenuList(null);
+			}else{
+				List<String> menuIdList = sysUserService.queryAllMenuId(userId);
+				return getAllMenuList(menuIdList);
+			}
+		}
+		return null;
 	}
 
 	public SysMenu queryObject(String menuId) {
@@ -68,7 +92,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	   if( map.get("page") != null){
 		  page = Integer.parseInt(map.get("page"));
 		}
-		   
+		SysMenuExample sysMenuExample = new SysMenuExample();
 		SysMenuExample.Criteria criteria = sysMenuExample.createCriteria();
 		if(map.get("type") != null){
 			criteria.andTypeEqualTo(map.get("type"));
@@ -100,5 +124,25 @@ public class SysMenuServiceImpl implements SysMenuService {
 			sysMenuMapper.deleteByPrimaryKey(menuId);
 		}
 	}
-
+	
+	/**
+	 * 获取所以菜单列表
+	 * @param menuIdList
+	 * @return
+	 */
+	private List<SysMenu> getAllMenuList(List<String> menuIdList){
+		List<SysMenu> menuList = queryListParentId("0", menuIdList);
+		getMenuTreeList(menuList, menuIdList);
+		return menuList;
+	}
+	private List<SysMenu> getMenuTreeList(List<SysMenu> menuList, List<String> menuIdList){
+		List<SysMenu> subMenuList = new ArrayList<>();
+		for (SysMenu sysMenu: menuList){
+			if(sysMenu.getType().equals("0")){
+					sysMenu.setChildernList(getMenuTreeList(queryListParentId(sysMenu.getMenuId(), menuIdList), menuIdList));
+			}
+			subMenuList.add(sysMenu);
+		}
+		return subMenuList;
+	}
 }

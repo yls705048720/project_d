@@ -1,5 +1,7 @@
 package com.yls.bus.sys.dao.entity;
 
+import java.util.List;
+
 public class SysMenu {
 
 	/**
@@ -186,4 +188,19 @@ public class SysMenu {
 	public void setOrderNum(String orderNum) {
 		this.orderNum = orderNum;
 	}
+	
+	/**
+	 * 子菜单列表
+	 */
+	private List<SysMenu> childernList;
+
+	public List<SysMenu> getChildernList() {
+		return childernList;
+	}
+
+	public void setChildernList(List<SysMenu> childernList) {
+		this.childernList = childernList;
+	}
+	
+	
 }

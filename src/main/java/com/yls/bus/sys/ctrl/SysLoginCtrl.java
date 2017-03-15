@@ -95,7 +95,6 @@ public class SysLoginCtrl {
 			exception.printStackTrace();
 			return YlsResult.error(exception.getMessage());
 		}
-		
 		return YlsResult.ok();
 	}
 	
@@ -103,7 +102,6 @@ public class SysLoginCtrl {
 	 * ÍË³ö
 	 * @return
 	 */
-	@ResponseBody
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(){
 		YlsShiroUtils.logout();

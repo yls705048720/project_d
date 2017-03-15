@@ -26,6 +26,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.yls.bus.sys.dao.entity.SysUser;
 import com.yls.bus.sys.service.SysMenuService;
 import com.yls.bus.sys.service.SysUserService;
+import com.yls.freamwork.utils.YlsShiroUtils;
 
 /**
  * @author YLS
@@ -81,7 +82,7 @@ public class SysUserRealm extends AuthorizingRealm{
 		if(sysUser.getStatus().equals("0")){
 			throw new LockedAccountException("账号已经锁定，请联系管理员");
 		}
-		
+		YlsShiroUtils.getSession().setAttribute("user", sysUser);
 		return new SimpleAuthenticationInfo(userName,password,getName());
 	}
 

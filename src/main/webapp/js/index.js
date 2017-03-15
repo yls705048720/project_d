@@ -30,23 +30,22 @@ $(window).on('resize', function() {
 Vue.component('menuItem',menuItem);
 
 var vm = new Vue({
-	el:'#rrapp',
+	el:'#layui_layout',
 	data:{
 		user:{},
 		menuList:{},
-		main:"sys/main.html",
 		password:'',
 		newPassword:'',
         navTitle:"控制台"
 	},
 	methods: {
 		getMenuList: function (event) {
-			$.getJSON("sys/menu/user?_"+$.now(), function(r){
+			$.getJSON("sysMenu/user?_"+$.now(), function(r){
 				vm.menuList = r.menuList;
 			});
 		},
 		getUser: function(){
-			$.getJSON("sys/user/info?_"+$.now(), function(r){
+			$.getJSON("sysUser/info?_"+$.now(), function(r){
 				vm.user = r.user;
 			});
 		},
@@ -63,7 +62,7 @@ var vm = new Vue({
 					var data = "password="+vm.password+"&newPassword="+vm.newPassword;
 					$.ajax({
 						type: "POST",
-					    url: "sys/user/password",
+					    url: "sysUser/password",
 					    data: data,
 					    dataType: "json",
 					    success: function(result){
@@ -92,8 +91,6 @@ var vm = new Vue({
 		router.start();
 	}
 });
-
-
 
 function routerList(router, menuList){
 	for(var key in menuList){

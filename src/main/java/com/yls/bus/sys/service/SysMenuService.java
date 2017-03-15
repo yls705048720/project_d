@@ -32,6 +32,11 @@ public interface SysMenuService {
 	 */
 	List<SysMenu> getUserMenuList(String userId);
 	
+	/**
+	 * 获取超级管理员权限
+	 * @return
+	 */
+	List<SysMenu> getAdminMenuList();
 	
 	/**
 	 * 查询菜单

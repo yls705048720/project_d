@@ -22,7 +22,6 @@ import com.yls.bus.sys.service.SysMenuService;
 import com.yls.bus.sys.service.SysUserService;
 import com.yls.freamwork.utils.YlsIdGenerator;
 
-import freemarker.core.ReturnInstruction.Return;
 
 /**
  * @author YLS
@@ -36,9 +35,11 @@ public class SysMenuServiceImpl implements SysMenuService {
 	
 	@Autowired
 	private SysUserService sysUserService;
-		
+	
+	@Override
 	public List<SysMenu> queryListParentId(String parentId, List<String> menuIdList) {
 		// TODO Auto-generated method stub
+		//每次都有新创建一个对象  要不条件都是一样的不覆盖
 		SysMenuExample sysMenuExample = new SysMenuExample();
 		SysMenuExample.Criteria criteria = sysMenuExample.createCriteria();
 		criteria.andParentIdEqualTo(parentId);
@@ -56,6 +57,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return userMenuList;
 	}
 
+	@Override
 	public List<SysMenu> queryNotButtonList() {
 		// TODO Auto-generated method stub
 		SysMenuExample sysMenuExample = new SysMenuExample();
@@ -64,6 +66,14 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return sysMenuMapper.selectByExample(sysMenuExample);
 	}
 
+	@Override
+	public List<SysMenu> getAdminMenuList() {
+		// TODO Auto-generated method stub
+		SysMenuExample sysMenuExample =new SysMenuExample();
+		return sysMenuMapper.selectByExample(sysMenuExample);
+	}
+	
+	@Override
 	public List<SysMenu> getUserMenuList(String userId) {
 		// TODO Auto-generated method stub
 		if(userId != null){
@@ -76,12 +86,14 @@ public class SysMenuServiceImpl implements SysMenuService {
 		}
 		return null;
 	}
-
+	
+	@Override
 	public SysMenu queryObject(String menuId) {
 		// TODO Auto-generated method stub
 		return sysMenuMapper.selectByPrimaryKey(menuId);
 	}
-
+	
+    @Override
 	public List<SysMenu> queryList(Map<String, String> map) {
 		// TODO Auto-generated method stub
 	   int row = 10;
@@ -102,22 +114,26 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return sysMenuMapper.selectByExample(sysMenuExample);
 	}
 
+    @Override
 	public int queryTotal(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 	@Transactional
+	@Override
 	public void save(SysMenu menu) {
 		// TODO Auto-generated method stub
 		menu.setMenuId(YlsIdGenerator.getUUID());
 		sysMenuMapper.insert(menu);
 	}
 	@Transactional
+	@Override
 	public void update(SysMenu menu) {
 		// TODO Auto-generated method stub
 		sysMenuMapper.updateByPrimaryKey(menu);
 	}
 	@Transactional
+	@Override
 	public void deleteBatch(String[] menuIds) {
 		// TODO Auto-generated method stub
 		for(String menuId: menuIds){
@@ -127,14 +143,21 @@ public class SysMenuServiceImpl implements SysMenuService {
 	
 	/**
 	 * 获取所以菜单列表
-	 * @param menuIdList
-	 * @return
+	 * @param menuIdList 用户菜单列表
+	 * @return 用户菜单
 	 */
 	private List<SysMenu> getAllMenuList(List<String> menuIdList){
 		List<SysMenu> menuList = queryListParentId("0", menuIdList);
 		getMenuTreeList(menuList, menuIdList);
 		return menuList;
 	}
+	
+	/**
+	 * 递归获取树形菜单
+	 * @param menuList 父菜单列表
+	 * @param menuIdList 用户菜单列表
+	 * @return 
+	 */
 	private List<SysMenu> getMenuTreeList(List<SysMenu> menuList, List<String> menuIdList){
 		List<SysMenu> subMenuList = new ArrayList<>();
 		for (SysMenu sysMenu: menuList){
@@ -145,4 +168,5 @@ public class SysMenuServiceImpl implements SysMenuService {
 		}
 		return subMenuList;
 	}
+
 }

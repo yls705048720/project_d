@@ -10,7 +10,7 @@ var menuItem = Vue.extend({
 	          '<i class="fa fa-angle-left pull-right"></i>',
 	          '</a>',
 	          '<ul v-if="item.type === 0" class="treeview-menu">',
-	          '<menu-item :item="item" v-for="item in item.list"></menu-item>',
+	          '<menu-item :item="item" v-for="item in item.childernList"></menu-item>',
 	          '</ul>',
 	          '<a v-if="item.type === 1" :href="\'#\'+item.url"><i v-if="item.icon != null" :class="item.icon"></i><i v-else class="fa fa-circle-o"></i> {{item.name}}</a>',
 	          '</li>'
@@ -30,10 +30,11 @@ $(window).on('resize', function() {
 Vue.component('menuItem',menuItem);
 
 var vm = new Vue({
-	el:'#layui_layout',
+	el:'#rrapp',
 	data:{
 		user:{},
 		menuList:{},
+		main:"sys/main.html",
 		password:'',
 		newPassword:'',
         navTitle:"控制台"
@@ -91,6 +92,8 @@ var vm = new Vue({
 		router.start();
 	}
 });
+
+
 
 function routerList(router, menuList){
 	for(var key in menuList){

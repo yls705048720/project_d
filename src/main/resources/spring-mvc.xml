@@ -17,6 +17,9 @@
 	<!-- swagger -->
 	<bean class="com.yls.bus.sys.swagger.SwaggerCfg"></bean>
 	
+	<!--全局异常处理 -->
+	<bean id="myExceptionHandler" class="com.yls.freamwork.utils.YlsRRExceptionHandler"/> 
+	
 	<!-- json -->
 	<!-- Velocity视图解析器    默认视图  html 解析-->
 	<bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">

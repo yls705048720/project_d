@@ -145,6 +145,21 @@
 			<version>1.0.7</version>
 		</dependency>
 		<!-- connection pool druid end -->
+		
+		 <!--Redis start --> 
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-redis</artifactId>
+		    <version>1.8.0.RELEASE</version>
+		</dependency> 
+		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>2.9.0</version>
+		</dependency>
+		<!--Redis end --> 
 
 		<!-- 数据有效性验证 -->
 		<!-- validate begin -->

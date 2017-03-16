@@ -13,7 +13,7 @@
 	<mvc:default-servlet-handler/>
 	<!-- if you use annotation you must configure following setting -->
 	<mvc:annotation-driven />
-
+	
 	<!-- json -->
 	<!-- Velocity视图解析器    默认视图  html 解析-->
 	<bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">

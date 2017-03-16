@@ -2,19 +2,22 @@
 var menuItem = Vue.extend({
 	name: 'menu-item',
 	props:{item:{}},
-	template:[
+	//js === 和 == 的区别
+	template: 
+		[
 	          '<li>',
-	          '<a v-if="item.type === 0" href="javascript:;">',
-	          '<i v-if="item.icon != null" :class="item.icon"></i>',
-	          '<span>{{item.name}}</span>',
-	          '<i class="fa fa-angle-left pull-right"></i>',
+	          '<a v-if="item.type == 0" href="javascript:;">',
+		          '<i v-if="item.icon != null" :class="item.icon"></i>',
+		          '<span style="color: #F012BE;">{{item.name}}</span>',
+		          '<i class="fa fa-angle-left pull-right"></i>',
 	          '</a>',
-	          '<ul v-if="item.type === 0" class="treeview-menu">',
-	          '<menu-item :item="item" v-for="item in item.childernList"></menu-item>',
+	          '<ul v-if="item.type == 0" class="treeview-menu">',
+	          '<menu-item :item="item" :key="item.itemId"  v-for="item in item.childernList"></menu-item>',
 	          '</ul>',
-	          '<a v-if="item.type === 1" :href="\'#\'+item.url"><i v-if="item.icon != null" :class="item.icon"></i><i v-else class="fa fa-circle-o"></i> {{item.name}}</a>',
+	          '<a v-if="item.type == 1" :href="\'#\'+item.url"><i v-if="item.icon != null" :class="item.icon"></i><i v-else class="fa fa-circle-o"></i> {{item.name}}</a>',
 	          '</li>'
-	].join('')
+	]
+	.join('')
 });
 
 //iframe自适应
@@ -27,7 +30,7 @@ $(window).on('resize', function() {
 }).resize();
 
 //注册菜单组件
-Vue.component('menuItem',menuItem);
+Vue.component('menu-item',menuItem);
 
 var vm = new Vue({
 	el:'#rrapp',
@@ -40,16 +43,25 @@ var vm = new Vue({
         navTitle:"控制台"
 	},
 	methods: {
+		/**
+		 * 获取用户菜单列表
+		 */	
 		getMenuList: function (event) {
 			$.getJSON("sysMenu/user?_"+$.now(), function(r){
 				vm.menuList = r.menuList;
 			});
 		},
+		/**
+		 * 获取用户信息
+		 */
 		getUser: function(){
 			$.getJSON("sysUser/info?_"+$.now(), function(r){
 				vm.user = r.user;
 			});
 		},
+		/**
+		 * 更新密码
+		 */
 		updatePassword: function(){
 			layer.open({
 				type: 1,
@@ -79,12 +91,22 @@ var vm = new Vue({
 					});
 	            }
 			});
+		},
+		/**
+		 * 查看RESTFul API
+		 */
+		openAPI: function(){
+			//alert("/project_d/swagger-ui.html#/");
+			vm.main="/project_d/swagger-ui.html#/";
+			vm.navTitle="API"
 		}
 	},
+	
 	created: function(){
 		this.getMenuList();
 		this.getUser();
 	},
+	
 	updated: function(){
 		//路由
 		var router = new Router();
@@ -99,7 +121,7 @@ function routerList(router, menuList){
 	for(var key in menuList){
 		var menu = menuList[key];
 		if(menu.type == 0){
-			routerList(router, menu.list);
+			routerList(router, menu.childernList);
 		}else if(menu.type == 1){
 			router.add('#'+menu.url, function() {
 				var url = window.location.hash;

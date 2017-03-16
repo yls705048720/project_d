@@ -4,7 +4,6 @@
 package com.yls.bus.sys.shiro;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,8 +42,8 @@ public class SysUserRealm extends AuthorizingRealm{
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		// TODO Auto-generated method stub
-		SysUser sysUser = (SysUser)principals.getPrimaryPrincipal();
-		String userId = sysUser.getUserId();
+		//SysUser sysUser = (SysUser)principals.getPrimaryPrincipal();
+		String userId = YlsShiroUtils.getUserId();
 		List<String> permsList = null;
 		if(userId.equals("1")){
 			permsList= sysMenuService.getAdminMenuList()

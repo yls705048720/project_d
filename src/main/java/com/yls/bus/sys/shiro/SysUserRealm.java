@@ -47,7 +47,7 @@ public class SysUserRealm extends AuthorizingRealm{
 		String userId = sysUser.getUserId();
 		List<String> permsList = null;
 		if(userId.equals("1")){
-			permsList= sysMenuService.queryList(new HashMap<String, String>())
+			permsList= sysMenuService.getAdminMenuList()
 														.stream().map(sysMenu->sysMenu.getPerms())
 														.collect(Collectors.toList());
 		}else{

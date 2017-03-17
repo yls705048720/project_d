@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.yls.bus.sys.dao.entity.SysMenu;
+import com.yls.freamwork.utils.YlsResultForGrid;
 
 
 
@@ -46,7 +47,7 @@ public interface SysMenuService {
 	/**
 	 * 查询菜单列表
 	 */
-	List<SysMenu> queryList(Map<String, String> map);
+	YlsResultForGrid<SysMenu> queryList(Map<String, String> map);
 	
 	/**
 	 * 查询总数

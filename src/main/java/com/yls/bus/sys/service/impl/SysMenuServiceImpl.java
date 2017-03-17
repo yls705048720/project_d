@@ -21,6 +21,7 @@ import com.yls.bus.sys.dao.mapper.SysMenuMapper;
 import com.yls.bus.sys.service.SysMenuService;
 import com.yls.bus.sys.service.SysUserService;
 import com.yls.freamwork.utils.YlsIdGenerator;
+import com.yls.freamwork.utils.YlsResultForGrid;
 
 
 /**
@@ -36,6 +37,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Autowired
 	private SysUserService sysUserService;
 	
+	//OK
 	@Override
 	public List<SysMenu> queryListParentId(String parentId, List<String> menuIdList) {
 		// TODO Auto-generated method stub
@@ -66,6 +68,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return sysMenuMapper.selectByExample(sysMenuExample);
 	}
 
+	//OK
 	@Override
 	public List<SysMenu> getAdminMenuList() {
 		// TODO Auto-generated method stub
@@ -73,6 +76,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return sysMenuMapper.selectByExample(sysMenuExample);
 	}
 	
+	//OK
 	@Override
 	public List<SysMenu> getUserMenuList(String userId) {
 		// TODO Auto-generated method stub
@@ -94,24 +98,30 @@ public class SysMenuServiceImpl implements SysMenuService {
 	}
 	
     @Override
-	public List<SysMenu> queryList(Map<String, String> map) {
+	public YlsResultForGrid<SysMenu> queryList(Map<String, String> map) {
 		// TODO Auto-generated method stub
-	   int row = 10;
-	   int page = 0;
+    	
+	   int pageSize = 10;
+	   int pageNum = 0;
+	   
 	   if(map.get("row") != null){
-		  row = Integer.parseInt( map.get("row"));
+		   pageSize = Integer.parseInt( map.get("row"));
 		}
 	   if( map.get("page") != null){
-		  page = Integer.parseInt(map.get("page"));
+		   pageNum = Integer.parseInt(map.get("page"));
 		}
+	   
+	   //Ìõ¼þ²éÑ¯
 		SysMenuExample sysMenuExample = new SysMenuExample();
 		SysMenuExample.Criteria criteria = sysMenuExample.createCriteria();
+	
 		if(map.get("type") != null){
 			criteria.andTypeEqualTo(map.get("type"));
 		}
 		  
-		PageHelper.startPage(page, row);
-		return sysMenuMapper.selectByExample(sysMenuExample);
+		PageHelper.startPage(pageNum, pageSize);
+		
+		return new YlsResultForGrid<SysMenu>( sysMenuMapper.selectByExample(sysMenuExample));
 	}
 
     @Override

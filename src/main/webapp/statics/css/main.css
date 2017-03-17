@@ -10,8 +10,9 @@ html { overflow-x:hidden; }
     right: 0;
     float: none;
     margin-top: 0px;
+    margin-left:-6px ;
     padding-left: 10px;
-    background: #ecf0f5;
+    background:#D0E9C6;
 }
 
 .main-footer {
@@ -41,7 +42,7 @@ html { overflow-x:hidden; }
 tbody > tr > th {font-weight: normal; }
 .panel .table { margin:0 0; }
 .panel .pagination { margin:0; }
-.panel-default>.panel-heading {background-color: #f5f5f5;}
+.panel-default>.panel-heading {background-color: #F2DEDE;}
 .row{
 	border-top: 1px solid #ddd;
 	margin:0;

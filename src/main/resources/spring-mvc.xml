@@ -26,6 +26,7 @@
 		<property name="contentType" value="text/html;charset=UTF-8" />
 		<property name="viewNames" value="*.html" />
         <property name="suffix" value=""/>
+        <!--视图标签配置-->
         <property name="dateToolAttribute" value="date" />
         <property name="numberToolAttribute" value="number" /> 
         <property name="toolboxConfigLocation" value="/WEB-INF/velocity-toolbox.xml"/> 

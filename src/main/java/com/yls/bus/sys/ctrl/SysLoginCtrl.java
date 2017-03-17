@@ -28,6 +28,10 @@ import com.google.code.kaptcha.Producer;
 import com.yls.freamwork.utils.YlsResult;
 import com.yls.freamwork.utils.YlsShiroUtils;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * 登入相关
  * @author YLS
@@ -38,13 +42,9 @@ public class SysLoginCtrl {
 
 	@Autowired
 	private Producer producer;
-	/**
-	 * 生成验证码
-	 * @param response
-	 * @throws SecurityException
-	 * @throws IOException
-	 */
-	@RequestMapping("captcha.jpg")
+
+	@ApiOperation(value="获取验证码",notes="")
+	@RequestMapping(value="/captcha",method=RequestMethod.GET)
 	public void captcha(HttpServletResponse response) throws SecurityException, IOException{
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
@@ -54,19 +54,17 @@ public class SysLoginCtrl {
 		BufferedImage image = producer.createImage(text);
 		//保存到shiro session
 		YlsShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
-//		System.out.print(YlsShiroUtils.getSessionAttribute(Constants.KAPTCHA_SESSION_KEY));
 		ServletOutputStream outputStream = response.getOutputStream();
 		ImageIO.write(image, "jpg", outputStream);
 	}
 	
-	/**
-	 * 登入
-	 * @param username
-	 * @param password
-	 * @param captcha
-	 * @return
-	 * @throws IOException
-	 */
+	@ApiOperation(value="用户登录",notes="")
+	@ApiImplicitParams
+		({
+			@ApiImplicitParam(name = "username", value = "userName", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "password", value = "password", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "captcha", value = "验证码", required = true, dataType = "String")
+		})
 	@ResponseBody
 	@RequestMapping(value = "sys/login", method = RequestMethod.POST)
 	public YlsResult login(String username, String password, String captcha)throws IOException{
@@ -75,7 +73,7 @@ public class SysLoginCtrl {
 			return YlsResult.error("验证码不正确");
 		}
 		
-		try {
+	  try {
 			Subject subject = YlsShiroUtils.getSubject();
 			//sha256加密
 			password = new Sha256Hash(password).toHex();
@@ -98,11 +96,8 @@ public class SysLoginCtrl {
 		return YlsResult.ok();
 	}
 	
-	/**
-	 * 退出
-	 * @return
-	 */
-	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	@ApiOperation(value="用户登出",notes="")
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(){
 		YlsShiroUtils.logout();
 		return "redirect:login.html";

@@ -1,6 +1,9 @@
+/**
+ * 加载菜单列表
+ */
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../sys/menu/list',
+        url:path+"sysMenu/list",
         datatype: "json",
         colModel: [			
 			{ label: '菜单ID', name: 'menuId', width: 40, key: true },
@@ -12,24 +15,24 @@ $(function () {
 			{ label: '菜单URL', name: 'url', width: 100 },
 			{ label: '授权标识', name: 'perms', width: 100 },
 			{ label: '类型', name: 'type', width: 50, formatter: function(value, options, row){
-				if(value === 0){
+				if(value == 0){
 					return '<span class="label label-primary">目录</span>';
 				}
-				if(value === 1){
+				if(value == 1){
 					return '<span class="label label-success">菜单</span>';
 				}
-				if(value === 2){
+				if(value == 2){
 					return '<span class="label label-warning">按钮</span>';
 				}
 			}},
 			{ label: '排序号', name: 'orderNum', width: 50}                   
         ],
 		viewrecords: true,
-        height: 385,
-        rowNum: 10,
-		rowList : [10,30,50],
+        height: 560,
+        rowNum: 15,
+		rowList : [15,30,45],
         rownumbers: true, 
-        rownumWidth: 25, 
+        rownumWidth: 40, 
         autowidth:true,
         multiselect: true,
         pager: "#jqGridPager",
@@ -41,7 +44,7 @@ $(function () {
         },
         prmNames : {
             page:"page", 
-            rows:"limit", 
+            rows:"row", 
             order: "order"
         },
         gridComplete:function(){
@@ -67,7 +70,7 @@ var setting = {
 var ztree;
 
 var vm = new Vue({
-	el:'#rrapp',
+	el:'#app',
 	data:{
 		showList: true,
 		title: null,

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.yls.bus.sys.dao.entity.SysMenu;
+import com.yls.bus.sys.dao.entity.SysMenuViwe;
 import com.yls.freamwork.utils.YlsResultForGrid;
 
 
@@ -24,12 +25,12 @@ public interface SysMenuService {
 	List<SysMenu> queryListParentId(String parentId, List<String> menuIdList);
 	
 	/**
-	 * 获取不包含按钮的菜单列表
+	 * 获取不包含按钮的菜单列表 for  zTree
 	 */
 	List<SysMenu> queryNotButtonList();
 	
 	/**
-	 * 获取用户菜单列表
+	 * 获取用户菜单列表 for 导航菜单Tree数据结构
 	 */
 	List<SysMenu> getUserMenuList(String userId);
 	
@@ -40,14 +41,14 @@ public interface SysMenuService {
 	List<SysMenu> getAdminMenuList();
 	
 	/**
-	 * 查询菜单
+	 * 查询单个菜单信息
 	 */
 	SysMenu queryObject(String menuId);
 	
 	/**
-	 * 查询菜单列表
+	 * 查询菜单列表分页 
 	 */
-	YlsResultForGrid<SysMenu> queryList(Map<String, String> map);
+	YlsResultForGrid<SysMenuViwe> queryList(Map<String, String> map);
 	
 	/**
 	 * 查询总数
@@ -55,7 +56,7 @@ public interface SysMenuService {
 	int queryTotal(Map<String, String> map);
 	
 	/**
-	 * 保存菜单
+	 * 增加菜单
 	 */
 	void save(SysMenu menu);
 	

@@ -8,10 +8,83 @@
 <!-- v-cloak 取消数据绑定时的闪烁 -->
 <div id="app" v-cloak>
 	<div v-show="showList">
+			<div class="grid-btn">
+			#if($shiro.hasPermission("sys:menu:save"))
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;Add</a>
+			#end
+			#if($shiro.hasPermission("sys:menu:update"))
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;Update</a>
+			#end
+			#if($shiro.hasPermission("sys:menu:delete"))
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;Delete</a>
+			#end
+		</div>
 	    <table id="jqGrid"></table>
 	    <div id="jqGridPager"></div>
 	</div>
+	
+	<div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-2 control-label">Type</div> 
+				<label class="radio-inline">
+				  <input type="radio" name="type" value="0" v-model="menu.type"/>Catalogue
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="type" value="1" v-model="menu.type"/>Menu
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="type" value="2" v-model="menu.type"/>Button
+				</label>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">Name</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="menu.name" placeholder="Menu'name or Button'name"/>
+			    </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">Parent Menu</div>
+			   	<div class="col-sm-10">
+			       <input type="text" class="form-control" style="cursor:pointer;" v-model="menu.parentName" @click="menuTree" readonly="readonly" placeholder="Parent Menu"/>
+			    </div>
+			</div>
+			<div v-if="menu.type == 1" class="form-group">
+			   	<div class="col-sm-2 control-label">Menu Url</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="menu.url" placeholder=" Menu Url"/>
+			    </div>
+			</div>
+			<div v-if="menu.type == 1 || menu.type == 2" class="form-group">
+			   	<div class="col-sm-2 control-label">Authorization ID</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="menu.perms" placeholder="Separated by commas, like this: user:list,user:create"/>
+			    </div>
+			</div>
+			<div v-if="menu.type != 2" class="form-group">
+			   	<div class="col-sm-2 control-label">Order No</div>
+			   	<div class="col-sm-10">
+			      <input type="number" class="form-control" v-model="menu.orderNum" placeholder="Order No"/>
+			    </div>
+			</div>
+			<div v-if="menu.type != 2" class="form-group">
+			   	<div class="col-sm-2 control-label">Icon</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="menu.icon" placeholder="Menu Icon"/>
+			      <code style="margin-top:4px;display: block;">get icon from: http://fontawesome.io/icons/</code>
+			    </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="Commit"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="Back"/>
+			</div>
+		</form>
+	</div>
+		
 </div>
+
 
 
 <!-- 选择菜单 -->

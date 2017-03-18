@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.yls.bus.sys.dao.entity.SysUser;
 import com.yls.bus.sys.dao.entity.SysUserExample;
-import com.yls.bus.sys.dao.entity.UserMenuViewExample;
+import com.yls.bus.sys.dao.entity.SysUserMenuViewExample;
 import com.yls.bus.sys.dao.mapper.SysUserMapper;
-import com.yls.bus.sys.dao.mapper.UserMenuViewMapper;
+import com.yls.bus.sys.dao.mapper.SysUserMenuViewMapper;
 import com.yls.bus.sys.service.SysUserService;
 import com.yls.freamwork.utils.YlsIdGenerator;
 
@@ -35,13 +35,13 @@ public class SysUserServiceImpl implements SysUserService {
 	private SysUserExample sysUserExample = new SysUserExample();
 	
 	@Autowired
-	private UserMenuViewMapper userMenuViewMapper;
-	private UserMenuViewExample userMenuViewExample = new UserMenuViewExample();
+	private SysUserMenuViewMapper userMenuViewMapper;
+	private SysUserMenuViewExample userMenuViewExample = new SysUserMenuViewExample();
 	
 
 	public List<String> queryAllPerms(String userId) {
 		// TODO Auto-generated method stub
-		UserMenuViewExample.Criteria criteria = userMenuViewExample.createCriteria();
+		SysUserMenuViewExample.Criteria criteria = userMenuViewExample.createCriteria();
 		criteria.andUserIdEqualTo(userId);
 		return userMenuViewMapper.selectByExample(userMenuViewExample)
 													.stream().map(userMenuView->userMenuView.getMenuPerms())
@@ -50,7 +50,7 @@ public class SysUserServiceImpl implements SysUserService {
 
 	public List<String> queryAllMenuId(String userId) {
 		// TODO Auto-generated method stub
-		UserMenuViewExample.Criteria criteria = userMenuViewExample.createCriteria();
+		SysUserMenuViewExample.Criteria criteria = userMenuViewExample.createCriteria();
 		criteria.andUserIdEqualTo(userId);
 		return userMenuViewMapper.selectByExample(userMenuViewExample)
 													.stream().map(userMenuView->userMenuView.getMenuId())

@@ -64,7 +64,7 @@
 .ui-jqgrid .ui-jqgrid-htable thead th {
 	overflow : hidden; 
 	border-bottom : none;
-	padding-right: 2px;
+	padding-right: 10px;
 }
 .ui-jqgrid .ui-jqgrid-htable thead th div {
 	overflow: hidden; 

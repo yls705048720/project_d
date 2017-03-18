@@ -201,6 +201,24 @@ public class SysMenu {
 	public void setChildernList(List<SysMenu> childernList) {
 		this.childernList = childernList;
 	}
+	/**
+	 * zTree  Ù–‘
+	 */
+	private boolean open;
+
+	/**
+	 * @return the open
+	 */
+	public boolean isOpen() {
+		return open;
+	}
+
+	/**
+	 * @param open the open to set
+	 */
+	public void setOpen(boolean open) {
+		this.open = open;
+	}
 	
 	
 }

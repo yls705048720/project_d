@@ -60,8 +60,8 @@
 			/> <columnOverride column="status" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="remark" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> </table> -->
-		<table schema="" catalog="" tableName="v_user_menu"
-			domainObjectName="UserMenuView">
+		<!-- <table schema="" catalog="" tableName="v_sys_user_menu"
+			domainObjectName="SysUserMenuView">
 			<columnOverride column="user_id" javaType="java.lang.String"
 				jdbcType="VARCHAR" />
 			<columnOverride column="menu_perms" javaType="java.lang.String"
@@ -69,6 +69,17 @@
 			<columnOverride column="menu_id" javaType="java.lang.String"
 				jdbcType="VARCHAR" />
 		</table>
-
+		 -->
+			<table schema="" catalog="" tableName="v_sys_menu" domainObjectName="SysMenuViwe" 
+			> <columnOverride column="menu_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="parent_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="name" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="url" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="perms" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="type" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="icon" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="order_num" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="parent_name" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/>  </table>
 	</context>
 </generatorConfiguration>

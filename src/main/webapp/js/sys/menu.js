@@ -6,15 +6,15 @@ $(function () {
         url:path+"sysMenu/list",
         datatype: "json",
         colModel: [			
-			{ label: '菜单ID', name: 'menuId', width: 40, key: true },
+			{ label: '菜单ID', name: 'menuId', width: 40, key: true, hidden:true },
 			{ label: '菜单名称', name: 'name', width: 60 },
 			{ label: '上级菜单', name: 'parentName', width: 60 },
-			{ label: '菜单图标', name: 'icon', width: 50, formatter: function(value, options, row){
+			{ label: '菜单图标', name: 'icon', width: 50, align:'center',  formatter: function(value, options, row){
 				return value == null ? '' : '<i class="'+value+' fa-lg"></i>';
 			}},
-			{ label: '菜单URL', name: 'url', width: 100 },
-			{ label: '授权标识', name: 'perms', width: 100 },
-			{ label: '类型', name: 'type', width: 50, formatter: function(value, options, row){
+			{ label: '菜单URL', name: 'url', width: 60 },
+			{ label: '授权标识', name: 'perms', width: 200 },
+			{ label: '类型', name: 'type', width: 40, formatter: function(value, options, row){
 				if(value == 0){
 					return '<span class="label label-primary">目录</span>';
 				}
@@ -25,7 +25,7 @@ $(function () {
 					return '<span class="label label-warning">按钮</span>';
 				}
 			}},
-			{ label: '排序号', name: 'orderNum', width: 50}                   
+			{ label: '排序号', name: 'orderNum', width: 40}                   
         ],
 		viewrecords: true,
         height: 560,
@@ -35,17 +35,25 @@ $(function () {
         rownumWidth: 40, 
         autowidth:true,
         multiselect: true,
+        multiboxonly: true,
+        multiselectWidth:40,
+       // cellEdit: true,
+        //分页组件
         pager: "#jqGridPager",
+        caption: '',
+        //json的格式
         jsonReader : {
             root: "page.list",
             page: "page.currPage",
             total: "page.totalPage",
             records: "page.totalCount"
         },
+        //向后台传输的数据
         prmNames : {
             page:"page", 
             rows:"row", 
-            order: "order"
+            order: "order",
+            sidx:"sidx"
         },
         gridComplete:function(){
         	//隐藏grid底部滚动条
@@ -67,6 +75,9 @@ var setting = {
 		}
 	}
 };
+/**
+ * zTree
+ */
 var ztree;
 
 var vm = new Vue({
@@ -82,9 +93,11 @@ var vm = new Vue({
 		}
 	},
 	methods: {
+		/**
+		 * 加载树形菜单 使用zTree插件
+		 */
 		getMenu: function(menuId){
-			//加载菜单树
-			$.get("../sys/menu/select", function(r){
+			$.get(path+"sysMenu/select", function(r){
 				ztree = $.fn.zTree.init($("#menuTree"), setting, r.menuList);
 				var node = ztree.getNodeByParam("menuId", vm.menu.parentId);
 				ztree.selectNode(node);
@@ -92,19 +105,25 @@ var vm = new Vue({
 				vm.menu.parentName = node.name;
 			})
 		},
+		/**
+		 * 显示添加菜单页面
+		 */
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
 			vm.menu = {parentName:null,parentId:0,type:1,orderNum:0};
 			vm.getMenu();
 		},
+		/**
+		 * 显示更新页面
+		 */
 		update: function (event) {
 			var menuId = getSelectedRow();
 			if(menuId == null){
 				return ;
 			}
-			
-			$.get("../sys/menu/info/"+menuId, function(r){
+			//获取菜单详细信息
+			$.get(path+"sysMenu/info/"+menuId, function(r){
 				vm.showList = false;
                 vm.title = "修改";
                 vm.menu = r.menu;
@@ -112,20 +131,23 @@ var vm = new Vue({
 			
 			vm.getMenu();
 		},
+		/**
+		 * 删除菜单
+		 */
 		del: function (event) {
 			var menuIds = getSelectedRows();
 			if(menuIds == null){
 				return ;
 			}
-			
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: "../sys/menu/delete",
+				    url: path+"sysMenu/delete",
 				    data: JSON.stringify(menuIds),
 				    success: function(r){
-				    	if(r.code === 0){
+				    	if(r.code == 0){
 							alert('操作成功', function(index){
+							  // location.reload();
 								vm.reload();
 							});
 						}else{
@@ -135,16 +157,20 @@ var vm = new Vue({
 				});
 			});
 		},
+		/**
+		 * 更新或修改
+		 */
 		saveOrUpdate: function (event) {
-			var url = vm.menu.menuId == null ? "../sys/menu/save" : "../sys/menu/update";
+			var url = vm.menu.menuId == null ? path+"sysMenu/save" : path+"sysMenu/update";
 			$.ajax({
 				type: "POST",
 			    url: url,
 			    data: JSON.stringify(vm.menu),
 			    success: function(r){
-			    	if(r.code === 0){
+			    	if(r.code == 0){
 						alert('操作成功', function(index){
 							vm.reload();
+							//location.reload();
 						});
 					}else{
 						alert(r.msg);
@@ -173,11 +199,14 @@ var vm = new Vue({
 	            }
 			});
 		},
+		/**
+		 * 重新加载表格
+		 */
 		reload: function (event) {
 			vm.showList = true;
-			var page = $("#jqGrid").jqGrid('getGridParam','page');
+			//var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-                page:page
+                page:0
             }).trigger("reloadGrid");
 		}
 	}

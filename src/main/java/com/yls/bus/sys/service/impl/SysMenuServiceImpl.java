@@ -7,22 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.github.pagehelper.PageHelper;
 
 import com.yls.bus.sys.dao.entity.SysMenu;
 import com.yls.bus.sys.dao.entity.SysMenuExample;
+import com.yls.bus.sys.dao.entity.SysMenuViwe;
+import com.yls.bus.sys.dao.entity.SysMenuViweExample;
 import com.yls.bus.sys.dao.mapper.SysMenuMapper;
+import com.yls.bus.sys.dao.mapper.SysMenuViweMapper;
 import com.yls.bus.sys.service.SysMenuService;
 import com.yls.bus.sys.service.SysUserService;
 import com.yls.freamwork.utils.YlsIdGenerator;
 import com.yls.freamwork.utils.YlsResultForGrid;
-
 
 /**
  * @author YLS
@@ -33,6 +34,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 
 	@Autowired
 	private SysMenuMapper sysMenuMapper;
+	@Autowired
+	private SysMenuViweMapper sysMenuViweMapper;
 	
 	@Autowired
 	private SysUserService sysUserService;
@@ -45,6 +48,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 		SysMenuExample sysMenuExample = new SysMenuExample();
 		SysMenuExample.Criteria criteria = sysMenuExample.createCriteria();
 		criteria.andParentIdEqualTo(parentId);
+		//排序
+		sysMenuExample.setOrderByClause("order_num asc");
 		List<SysMenu> menuList=sysMenuMapper.selectByExample(sysMenuExample);
 		if(menuIdList == null){
 			return menuList;
@@ -58,13 +63,15 @@ public class SysMenuServiceImpl implements SysMenuService {
 		}
 		return userMenuList;
 	}
-
-	@Override
+	
+	//OK
+	@Override 
 	public List<SysMenu> queryNotButtonList() {
 		// TODO Auto-generated method stub
 		SysMenuExample sysMenuExample = new SysMenuExample();
 		SysMenuExample.Criteria criteria = sysMenuExample.createCriteria();
 		criteria.andTypeNotEqualTo("2");
+		sysMenuExample.setOrderByClause("order_num  asc");
 		return sysMenuMapper.selectByExample(sysMenuExample);
 	}
 
@@ -91,6 +98,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return null;
 	}
 	
+	//OK
 	@Override
 	public SysMenu queryObject(String menuId) {
 		// TODO Auto-generated method stub
@@ -98,7 +106,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	}
 	
     @Override
-	public YlsResultForGrid<SysMenu> queryList(Map<String, String> map) {
+	public YlsResultForGrid<SysMenuViwe> queryList(Map<String, String> map) {
 		// TODO Auto-generated method stub
     	
 	   int pageSize = 10;
@@ -112,16 +120,28 @@ public class SysMenuServiceImpl implements SysMenuService {
 		}
 	   
 	   //条件查询
-		SysMenuExample sysMenuExample = new SysMenuExample();
-		SysMenuExample.Criteria criteria = sysMenuExample.createCriteria();
+		SysMenuViweExample sysMenuViweExample = new SysMenuViweExample();
+		SysMenuViweExample.Criteria criteria = sysMenuViweExample.createCriteria();
 	
 		if(map.get("type") != null){
 			criteria.andTypeEqualTo(map.get("type"));
 		}
-		  
+		
+		//sidx order   设定排序 jqGrid
+		if(!StringUtils.isEmpty(map.get("sidx"))){
+			String order = map.get("sidx");
+			if("parentName".equals(order)){
+				order="parent_id";
+			}
+			if("orderNum".equals(order)){
+				order="order_num";
+			}
+			sysMenuViweExample.setOrderByClause(order+" "+map.get("order"));
+		}
+		
 		PageHelper.startPage(pageNum, pageSize);
 		
-		return new YlsResultForGrid<SysMenu>( sysMenuMapper.selectByExample(sysMenuExample));
+		return new YlsResultForGrid<SysMenuViwe>(sysMenuViweMapper.selectByExample(sysMenuViweExample));
 	}
 
     @Override
@@ -142,6 +162,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		// TODO Auto-generated method stub
 		sysMenuMapper.updateByPrimaryKey(menu);
 	}
+	//OK
 	@Transactional
 	@Override
 	public void deleteBatch(String[] menuIds) {

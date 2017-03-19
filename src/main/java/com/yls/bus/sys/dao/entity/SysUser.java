@@ -2,6 +2,7 @@ package com.yls.bus.sys.dao.entity;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class SysUser {
 
@@ -166,4 +167,22 @@ public class SysUser {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+	
+	private List<String> roleIdList;
+
+	/**
+	 * @return the roleIdList
+	 */
+	public List<String> getRoleIdList() {
+		return roleIdList;
+	}
+
+	/**
+	 * @param roleIdList the roleIdList to set
+	 */
+	public void setRoleIdList(List<String> roleIdList) {
+		this.roleIdList = roleIdList;
+	}
+	
+	
 }

@@ -1,27 +1,31 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../sys/user/list',
+        url: path+'sysUser/list',
         datatype: "json",
         colModel: [			
-			{ label: '用户ID', name: 'userId', width: 45, key: true },
+			{ label: '用户ID', name: 'userId', width: 45, key: true, hidden: true },
 			{ label: '用户名', name: 'username', width: 75 },
 			{ label: '邮箱', name: 'email', width: 90 },
 			{ label: '手机号', name: 'mobile', width: 100 },
 			{ label: '状态', name: 'status', width: 80, formatter: function(value, options, row){
-				return value === 0 ? 
+				return value == 0 ? 
 					'<span class="label label-danger">禁用</span>' : 
 					'<span class="label label-success">正常</span>';
 			}},
-			{ label: '创建时间', name: 'createTime', width: 80}                   
+			{ label: '创建时间', name: 'createTime', width: 80,formatter: function(value, options, row){
+				return value!=null ?new Date(parseInt(value)): " ";
+			}}                   
         ],
 		viewrecords: true,
-        height: 385,
+        height: 500,
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
         multiselect: true,
+        multiboxonly: true,
+        multiselectWidth:40,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",
@@ -30,9 +34,10 @@ $(function () {
             records: "page.totalCount"
         },
         prmNames : {
-            page:"page", 
-            rows:"limit", 
-            order: "order"
+            page: "page", 
+            rows: "limit", 
+            order: "order",
+            sidx: "sidx"
         },
         gridComplete:function(){
         	//隐藏grid底部滚动条
@@ -90,7 +95,7 @@ var vm = new Vue({
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: "../sys/user/delete",
+				    url: path+"sysUser/delete",
 				    data: JSON.stringify(userIds),
 				    success: function(r){
 						if(r.code == 0){
@@ -105,7 +110,7 @@ var vm = new Vue({
 			});
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.user.userId == null ? "../sys/user/save" : "../sys/user/update";
+			var url = vm.user.userId == null ? path+"sysUser/save" : path+"sysUser/update";
 			$.ajax({
 				type: "POST",
 			    url: url,
@@ -122,21 +127,22 @@ var vm = new Vue({
 			});
 		},
 		getUser: function(userId){
-			$.get("../sys/user/info/"+userId, function(r){
+			$.get(path+"sysUser/info/"+userId, function(r){
 				vm.user = r.user;
+				vm.user.password=null;
 			});
 		},
 		getRoleList: function(){
-			$.get("../sys/role/select", function(r){
+			$.get(path+"sysRole/select", function(r){
 				vm.roleList = r.list;
 			});
 		},
 		reload: function (event) {
 			vm.showList = true;
-			var page = $("#jqGrid").jqGrid('getGridParam','page');
+			//var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
                 postData:{'username': vm.q.username},
-                page:page
+                page:0
             }).trigger("reloadGrid");
 		}
 	}

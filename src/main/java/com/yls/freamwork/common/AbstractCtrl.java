@@ -22,7 +22,10 @@ import com.yls.freamwork.utils.YlsConstants;
 public abstract class AbstractCtrl {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
-	
+	/**
+	 * MVC日期类型转换
+	 * @param binder
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		binder.registerCustomEditor(Date.class, new PropertyEditorSupport(){

@@ -19,6 +19,8 @@ public interface SysRoleService {
 	
 	List<SysRole> queryList(Map<String, String> map);
 	
+	List<SysRole> selectAll();
+	
 	int queryTotal(Map<String, String> map);
 	
 	void save(SysRole role);
@@ -26,4 +28,5 @@ public interface SysRoleService {
 	void update(SysRole role);
 	
 	void deleteBatch(String[] roleIds);
+	
 }

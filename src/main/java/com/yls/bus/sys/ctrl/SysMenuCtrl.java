@@ -94,6 +94,15 @@ public class SysMenuCtrl extends AbstractCtrl {
 		return YlsResult.ok().put("menuList", list);
 	}
 	
+	@ApiOperation(value="角色授权菜单", notes="")
+	@ResponseBody
+	@RequestMapping(value="/perms", method=RequestMethod.GET)
+	public YlsResult getPerms(){
+		return YlsResult.ok()
+								.put("menuList", sysMenuService.getAdminMenuList());
+	}
+	
+	
 	@ApiOperation(value="获取菜单详细信息", notes="")
 	@ApiImplicitParam(name="menuId", value="菜单Id", required=true, dataType="String")
 	@RequiresPermissions("sys:menu:info")
@@ -105,7 +114,8 @@ public class SysMenuCtrl extends AbstractCtrl {
 	}
 	
 	@ApiOperation(value="添加菜单", notes="")
-	@ApiImplicitParam(name="sysMenu", value="菜单实体",required=true,dataType="com.yls.bus.sys.dao.entity.SysMenu")
+	@ApiImplicitParam(name="sysMenu", value="菜单实体",
+									required=true,dataType="com.yls.bus.sys.dao.entity.SysMenu")
 	@RequiresPermissions("sys:menu:save")
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST)
@@ -117,7 +127,8 @@ public class SysMenuCtrl extends AbstractCtrl {
 	}
 	
 	@ApiOperation(value="更新菜单", notes="")
-	@ApiImplicitParam(name="sysMenu", value="菜单实体",required=true,dataType="com.yls.bus.sys.dao.entity.SysMenu")	
+	@ApiImplicitParam(name="sysMenu", value="菜单实体",required=true
+															,dataType="com.yls.bus.sys.dao.entity.SysMenu")	
 	@RequiresPermissions("sys:menu:update")
 	@ResponseBody
 	@RequestMapping(value="/update",method=RequestMethod.POST)
@@ -156,7 +167,7 @@ public class SysMenuCtrl extends AbstractCtrl {
 		
 		//目录、菜单
 		if(StringUtils.equals(sysMenu.getType() , YlsConstants.MenuType.CATALOG.getValue())
-						|| StringUtils.equals( sysMenu.getType(), YlsConstants.MenuType.MENU.getValue())){
+					|| StringUtils.equals( sysMenu.getType(), YlsConstants.MenuType.MENU.getValue())){
 			
 			if(!StringUtils.equals(parentType , YlsConstants.MenuType.CATALOG.getValue())){
 				throw new YlsRRException("上级菜单只能为目录类型");

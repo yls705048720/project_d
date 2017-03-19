@@ -1,21 +1,25 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../sys/role/list',
+        url: path+'sysRole/list',
         datatype: "json",
         colModel: [			
-			{ label: '角色ID', name: 'roleId', width: 45, key: true },
-			{ label: '角色名称', name: 'roleName', width: 75 },
+			{ label: '角色ID', name: 'roleId', width: 45, key: true, hidden:true },
+			{ label: '角色名称', name: 'roleName', width: 50 },
 			{ label: '备注', name: 'remark', width: 100 },
-			{ label: '创建时间', name: 'createTime', width: 80}                   
+			{ label: '创建时间', name: 'createTime', width: 140, formatter: function(value, options, row){
+				return value!=null ?new Date(parseInt(value)): " ";
+			}}                   
         ],
 		viewrecords: true,
-        height: 385,
+        height: 500,
         rowNum: 10,
-		rowList : [10,30,50],
+		rowList : [10,20,30],
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
         multiselect: true,
+        multiboxonly: true,
+        multiselectWidth:40,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",
@@ -26,7 +30,8 @@ $(function () {
         prmNames : {
             page:"page", 
             rows:"limit", 
-            order: "order"
+            order:"order",
+            sidx:"sidx"
         },
         gridComplete:function(){
         	//隐藏grid底部滚动条
@@ -65,15 +70,24 @@ var vm = new Vue({
 		role:{}
 	},
 	methods: {
+		/**
+		 * 查询
+		 */
 		query: function () {
 			vm.reload();
 		},
+		/**
+		 * 打开添加界面
+		 */
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
 			vm.role = {};
 			vm.getMenuTree(null);
 		},
+		/**
+		 * 打开更新界面
+		 */
 		update: function () {
 			var roleId = getSelectedRow();
 			if(roleId == null){
@@ -84,6 +98,9 @@ var vm = new Vue({
             vm.title = "修改";
             vm.getMenuTree(roleId);
 		},
+		/**
+		 * 删除
+		 */
 		del: function (event) {
 			var roleIds = getSelectedRows();
 			if(roleIds == null){
@@ -93,7 +110,7 @@ var vm = new Vue({
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: "../sys/role/delete",
+				    url: path+"sysRole/delete",
 				    data: JSON.stringify(roleIds),
 				    success: function(r){
 						if(r.code == 0){
@@ -107,8 +124,11 @@ var vm = new Vue({
 				});
 			});
 		},
+		/**
+		 * 查询角色信息
+		 */
 		getRole: function(roleId){
-            $.get("../sys/role/info/"+roleId, function(r){
+            $.get(path+"sysRole/info/"+roleId, function(r){
             	vm.role = r.role;
                 
                 //勾选角色所拥有的菜单
@@ -119,6 +139,9 @@ var vm = new Vue({
     			}
     		});
 		},
+		/**
+		 * 添加或更新
+		 */
 		saveOrUpdate: function (event) {
 			//获取选择的菜单
 			var nodes = ztree.getCheckedNodes(true);
@@ -128,13 +151,13 @@ var vm = new Vue({
 			}
 			vm.role.menuIdList = menuIdList;
 			
-			var url = vm.role.roleId == null ? "../sys/role/save" : "../sys/role/update";
+			var url = vm.role.roleId == null ? path+"sysRole/save" : path+"sysRole/update";
 			$.ajax({
 				type: "POST",
 			    url: url,
 			    data: JSON.stringify(vm.role),
 			    success: function(r){
-			    	if(r.code === 0){
+			    	if(r.code == 0){
 						alert('操作成功', function(index){
 							vm.reload();
 						});
@@ -144,9 +167,11 @@ var vm = new Vue({
 				}
 			});
 		},
+		/**
+		 * 加载菜单树
+		 */
 		getMenuTree: function(roleId) {
-			//加载菜单树
-			$.get("../sys/menu/perms", function(r){
+			$.get(path+"sysMenu/perms", function(r){
 				ztree = $.fn.zTree.init($("#menuTree"), setting, r.menuList);
 				//展开所有节点
 				ztree.expandAll(true);
@@ -156,12 +181,15 @@ var vm = new Vue({
 				}
 			});
 	    },
+	    /**
+	     * 重新加载列表
+	     */
 	    reload: function (event) {
 	    	vm.showList = true;
-			var page = $("#jqGrid").jqGrid('getGridParam','page');
+			//var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
                 postData:{'roleName': vm.q.roleName},
-                page:page
+                page:0
             }).trigger("reloadGrid");
 		}
 	}

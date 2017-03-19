@@ -2,6 +2,7 @@ package com.yls.bus.sys.dao.entity;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class SysRole {
 
@@ -97,4 +98,24 @@ public class SysRole {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+	
+	/**
+	 * 角色对应菜单Id列表
+	 */
+	private List<String> menuIdList;
+
+	/**
+	 * @return the menuIdList
+	 */
+	public List<String> getMenuIdList() {
+		return menuIdList;
+	}
+
+	/**
+	 * @param menuIdList the menuIdList to set
+	 */
+	public void setMenuIdList(List<String> menuIdList) {
+		this.menuIdList = menuIdList;
+	}
+
 }

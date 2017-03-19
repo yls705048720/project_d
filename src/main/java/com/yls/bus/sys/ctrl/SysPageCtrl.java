@@ -21,4 +21,5 @@ public class SysPageCtrl {
 	public String page(@PathVariable("url") String url){
 		return "sys/" + url + ".html";
 	}
+	
 }

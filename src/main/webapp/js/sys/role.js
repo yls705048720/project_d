@@ -159,6 +159,7 @@ var vm = new Vue({
 			    success: function(r){
 			    	if(r.code == 0){
 						alert('操作成功', function(index){
+							//location.reload();
 							vm.reload();
 						});
 					}else{
@@ -189,7 +190,7 @@ var vm = new Vue({
 			//var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
                 postData:{'roleName': vm.q.roleName},
-                page:0
+               // page:0
             }).trigger("reloadGrid");
 		}
 	}

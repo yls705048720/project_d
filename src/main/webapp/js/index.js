@@ -7,17 +7,16 @@ var menuItem = Vue.extend({
 		[
 	          '<li>',
 	          '<a v-if="item.type == 0" href="javascript:;">',
-		          '<i v-if="item.icon != null" :class="item.icon"></i>',
-		          '<span style="color: #F012BE;">{{item.name}}</span>',
-		          '<i class="fa fa-angle-left pull-right"></i>',
+	          '<i v-if="item.icon != null" :class="item.icon"></i>',
+	          '<span>{{item.name}}</span>',
+	          '<i class="fa fa-angle-left pull-right"></i>',
 	          '</a>',
 	          '<ul v-if="item.type == 0" class="treeview-menu">',
 	          '<menu-item :item="item" :key="item.itemId"  v-for="item in item.childernList"></menu-item>',
 	          '</ul>',
 	          '<a v-if="item.type == 1" :href="\'#\'+item.url"><i v-if="item.icon != null" :class="item.icon"></i><i v-else class="fa fa-circle-o"></i> {{item.name}}</a>',
 	          '</li>'
-	]
-	.join('')
+	].join('')
 });
 
 //iframe自适应
@@ -41,6 +40,7 @@ var vm = new Vue({
 		password:'',
 		newPassword:'',
         navTitle:"控制台"
+       // router :new Router()
 	},
 	methods: {
 		/**
@@ -96,9 +96,8 @@ var vm = new Vue({
 		 * 查看RESTFul API
 		 */
 		openAPI: function(){
-			//alert("/project_d/swagger-ui.html#/");
-			vm.main="/project_d/swagger-ui.html#/";
-			vm.navTitle="API"
+//			vm.main="/project_d/swagger-ui.html#/";
+//			vm.navTitle="API"
 		}
 	},
 	
@@ -137,4 +136,11 @@ function routerList(router, menuList){
 			});
 		}
 	}
+	//页面导航路由
+	router.add("#swagger-ui.html", function(){
+		var url = window.location.hash;
+		//替换iframe的url
+	    vm.main = url.replace('#', '');
+	    vm.navTitle = $("a[href='"+url+"']").text();
+	});
 }

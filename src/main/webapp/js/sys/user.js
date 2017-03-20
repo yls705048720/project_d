@@ -4,15 +4,15 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: '用户ID', name: 'userId', width: 45, key: true, hidden: true },
-			{ label: '用户名', name: 'username', width: 75 },
-			{ label: '邮箱', name: 'email', width: 90 },
-			{ label: '手机号', name: 'mobile', width: 100 },
-			{ label: '状态', name: 'status', width: 80, formatter: function(value, options, row){
+			{ label: '用户名', name: 'username', width: 55 },
+			{ label: '邮箱', name: 'email', width: 60 },
+			{ label: '手机号', name: 'mobile', width: 60 },
+			{ label: '状态', name: 'status', width: 50, formatter: function(value, options, row){
 				return value == 0 ? 
 					'<span class="label label-danger">禁用</span>' : 
 					'<span class="label label-success">正常</span>';
 			}},
-			{ label: '创建时间', name: 'createTime', width: 80,formatter: function(value, options, row){
+			{ label: '创建时间', name: 'createTime', width: 200,formatter: function(value, options, row){
 				return value!=null ?new Date(parseInt(value)): " ";
 			}}                   
         ],
@@ -142,7 +142,7 @@ var vm = new Vue({
 			//var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
                 postData:{'username': vm.q.username},
-                page:0
+              //  page:0
             }).trigger("reloadGrid");
 		}
 	}

@@ -69,9 +69,10 @@ public class SysLoginCtrl {
 	@RequestMapping(value = "sys/login", method = RequestMethod.POST)
 	public YlsResult login(String username, String password, String captcha)throws IOException{
 		String kaptcha = YlsShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-		if (captcha == null || !captcha.equals(kaptcha)) {
-			return YlsResult.error("验证码不正确");
-		}
+			//判断验证码测试不输入
+//		if (captcha == null || !captcha.equals(kaptcha)) {
+//			return YlsResult.error("验证码不正确");
+//		}
 		
 	  try {
 			Subject subject = YlsShiroUtils.getSubject();

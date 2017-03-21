@@ -64,7 +64,7 @@ public class SysUserRealm extends AuthorizingRealm{
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		// TODO Auto-generated method stub
 		String userName = (String)token.getPrincipal();
-//		System.out.println(token.getCredentials());
+
 		token.getCredentials();
 		String password = new String((char[])token.getCredentials());
 		

@@ -1,20 +1,22 @@
+
 /**
  * 加载菜单列表
  */
 $(function () {
     $("#jqGrid").jqGrid({
         url:path+"sysMenu/list",
+        //data:menuList_;
         datatype: "json",
         colModel: [			
 			{ label: '菜单ID', name: 'menuId', width: 40, key: true, hidden:true },
 			{ label: '菜单名称', name: 'name', width: 60 },
-			{ label: '上级菜单', name: 'parentName', width: 60 },
+			{ label: '上级菜单', name: 'parentName', width: 60, align:'center' },
 			{ label: '菜单图标', name: 'icon', width: 50, align:'center',  formatter: function(value, options, row){
 				return value == null ? '' : '<i class="'+value+' fa-lg"></i>';
 			}},
 			{ label: '菜单URL', name: 'url', width: 60 },
 			{ label: '授权标识', name: 'perms', width: 200 },
-			{ label: '类型', name: 'type', width: 40, formatter: function(value, options, row){
+			{ label: '类型', name: 'type', width: 30,align:'center' ,formatter: function(value, options, row){
 				if(value == 0){
 					return '<span class="label label-primary">目录</span>';
 				}
@@ -25,14 +27,14 @@ $(function () {
 					return '<span class="label label-warning">按钮</span>';
 				}
 			}},
-			{ label: '排序号', name: 'orderNum', width: 40}                   
+			{ label: '排序号', name: 'orderNum', width: 30, align: 'center'}                   
         ],
 		viewrecords: true,
         height: 560,
         rowNum: 15,
 		rowList : [15,30,45],
         rownumbers: true, 
-        rownumWidth: 40, 
+        rownumWidth: 45, 
         autowidth:true,
         multiselect: true,
         multiboxonly: true,

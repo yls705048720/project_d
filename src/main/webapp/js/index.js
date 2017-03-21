@@ -39,7 +39,7 @@ var vm = new Vue({
 		main:"sys/main.html",
 		password:'',
 		newPassword:'',
-        navTitle:"控制台"
+        navTitle:"控制台",
        // router :new Router()
 	},
 	methods: {
@@ -136,11 +136,14 @@ function routerList(router, menuList){
 			});
 		}
 	}
-	//页面导航路由
-	router.add("#swagger-ui.html", function(){
-		var url = window.location.hash;
-		//替换iframe的url
-	    vm.main = url.replace('#', '');
-	    vm.navTitle = $("a[href='"+url+"']").text();
-	});
+	//页面导航路径
+	var indexList=['#swagger-ui.html','#sys/main.html'];
+	for(var index in indexList){
+		router.add(indexList[index], function(){
+			var url = window.location.hash;
+			//替换iframe的url
+		    vm.main = url.replace('#', '');
+		    vm.navTitle = $("a[href='"+url+"']").text();
+		});
+	}
 }

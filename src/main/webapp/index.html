@@ -33,12 +33,29 @@
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-	  <div style="float:left;color:#fff;padding:15px 10px;">欢迎 {{user.username}}</div>
-      <div class="navbar-custom-menu">
+      
+	  <div style="float:right;color:#fff;padding:5px 90px;">
+			  <ul class="nav nav-pills">
+				<li role="presentation" class="dropdown">
+				    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+				      {{user.username}}<span class="caret"></span>
+				    </a>
+				    <ul class="dropdown-menu">
+	    		  		<li><a href="javascript:;" @click="updatePassword"><i class="fa fa-lock"></i> &nbsp;修改密码</a></li>
+       					 <li><a href="logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li> 
+					</ul>
+				  </li>
+			 </ul>
+	  </div>
+	  
+      <div class="navbar-custom-menu" style="float:left">
         <ul class="nav navbar-nav">
+        		<li><a href="#sys/main.html" ><i class="fa fa-home"></i> &nbsp;首页</a></li>
         		<li><a href="#swagger-ui.html" ><i class="fa fa-linkedin-square"></i> &nbsp;查看API</a></li>
+		  		<!--
 		  		<li><a href="javascript:;" @click="updatePassword"><i class="fa fa-lock"></i> &nbsp;修改密码</a></li>
-          		<li><a href="logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
+          		<li><a href="logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li> 
+          		-->
 		</ul>
       </div>
     </nav>
@@ -53,7 +70,7 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-		<li class="header">导航菜单</li>
+		<li class="header"><h5 align="centers"><b>导航菜单</b></h5></li>
 		<!-- Vue 生成菜单 -->
 		<menu-item :item="item" :key="item.itemId"  v-for="item in menuList"></menu-item>
       </ul>
@@ -66,8 +83,9 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <ol class="breadcrumb" id="nav_title" style="position:static;float:none;">
-        <li class="active"><i class="fa fa-home" style="font-size:25px;position:relative;top:2px;left:-3px;"></i > &nbsp; 首页</li>
-        <li class="active">{{navTitle}}</li>
+        <li class="active">
+	        <i class="fa fa-home" style="font-size:25px;position:relative;top:2px;left:-3px;"></i > &nbsp; {{navTitle}}
+        </li>
       </ol>
     </section>
 

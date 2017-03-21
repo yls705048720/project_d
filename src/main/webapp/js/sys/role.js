@@ -4,9 +4,9 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: '角色ID', name: 'roleId', width: 45, key: true, hidden:true },
-			{ label: '角色名称', name: 'roleName', width: 50 },
-			{ label: '备注', name: 'remark', width: 100 },
-			{ label: '创建时间', name: 'createTime', width: 140, formatter: function(value, options, row){
+			{ label: '角色名称', name: 'roleName', width: 40,align:'center'  },
+			{ label: '备注', name: 'remark', width: 240  },
+			{ label: '创建时间', name: 'createTime', width: 120,align:'center' , formatter: function(value, options, row){
 				return value!=null ?new Date(parseInt(value)): " ";
 			}}                   
         ],
@@ -15,7 +15,7 @@ $(function () {
         rowNum: 10,
 		rowList : [10,20,30],
         rownumbers: true, 
-        rownumWidth: 25, 
+        rownumWidth: 45, 
         autowidth:true,
         multiselect: true,
         multiboxonly: true,
@@ -175,7 +175,7 @@ var vm = new Vue({
 			$.get(path+"sysMenu/perms", function(r){
 				ztree = $.fn.zTree.init($("#menuTree"), setting, r.menuList);
 				//展开所有节点
-				ztree.expandAll(true);
+				ztree.expandAll(false);
 				
 				if(roleId != null){
 					vm.getRole(roleId);

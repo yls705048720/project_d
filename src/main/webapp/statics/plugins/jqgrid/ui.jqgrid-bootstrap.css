@@ -2,13 +2,13 @@
 .ui-jqgrid {
 	position: relative; 
 	border: 1px solid #ddd;      /*default*/
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
 }
 .ui-jqgrid .ui-jqgrid-view {
 	position: relative;
-	left:0; 
+	left:-5px; 
 	top: 0; 
 	padding: 0;
 }
@@ -51,10 +51,11 @@
 	margin: 0;
 	padding: 0; 
 	overflow: hidden;
+	align:center;
 }
 .ui-jqgrid .ui-jqgrid-hbox {
 	float: left; 
-	padding-right: 20px;
+	padding-right: 30px;
 }
 .ui-jqgrid .ui-jqgrid-htable { 
 	margin-bottom: 0; 
@@ -62,11 +63,13 @@
 	border-top:none;
 }
 .ui-jqgrid .ui-jqgrid-htable thead th {
+	text-align: center;
 	overflow : hidden; 
 	border-bottom : none;
-	padding-right: 10px;
+	padding-right: 0px;
 }
 .ui-jqgrid .ui-jqgrid-htable thead th div {
+	text-align: center;
 	overflow: hidden; 
 	position:relative;
 }
@@ -76,6 +79,7 @@
 }
 .ui-th-column-header, 
 .ui-jqgrid .ui-jqgrid-htable th.ui-th-column-header {
+	text-align: center;
 	overflow: hidden;
 	white-space: nowrap;
 }
@@ -111,6 +115,7 @@
 	display: inline;
 	overflow: hidden;
 }
+/**
 .ui-jqgrid .ui-grid-ico-sort { 
 	margin-left:5px; 
 	overflow:hidden;
@@ -135,6 +140,7 @@
 	margin-top:0;
 }
 .ui-jqgrid .ui-single-sort-desc {}
+**/
 .ui-jqgrid .ui-jqgrid-sortable {
 	cursor:pointer;
 }
@@ -735,7 +741,9 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
 .ui-jqgrid .ui-scroll-popup {
 	width: 100px;
 }
-.ui-search-table select,
+.ui-search-table select{
+
+},
 .ui-search-table input 
 {
 	padding: 4px 3px;

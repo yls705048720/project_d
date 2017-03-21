@@ -73,7 +73,6 @@ public class SysLoginCtrl {
 //		if (captcha == null || !captcha.equals(kaptcha)) {
 //			return YlsResult.error("验证码不正确");
 //		}
-		
 	  try {
 			Subject subject = YlsShiroUtils.getSubject();
 			//sha256加密

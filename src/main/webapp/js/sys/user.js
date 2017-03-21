@@ -1,18 +1,19 @@
+
 $(function () {
     $("#jqGrid").jqGrid({
         url: path+'sysUser/list',
         datatype: "json",
         colModel: [			
 			{ label: '用户ID', name: 'userId', width: 45, key: true, hidden: true },
-			{ label: '用户名', name: 'username', width: 55 },
-			{ label: '邮箱', name: 'email', width: 60 },
-			{ label: '手机号', name: 'mobile', width: 60 },
-			{ label: '状态', name: 'status', width: 50, formatter: function(value, options, row){
+			{ label: '用户名', name: 'username', width: 55,align:'center'  },
+			{ label: '邮箱', name: 'email', width: 60,align:'center'  },
+			{ label: '手机号', name: 'mobile', width: 60,align:'center'  },
+			{ label: '状态', name: 'status', width: 50,align:'center' , formatter: function(value, options, row){
 				return value == 0 ? 
 					'<span class="label label-danger">禁用</span>' : 
 					'<span class="label label-success">正常</span>';
 			}},
-			{ label: '创建时间', name: 'createTime', width: 200,formatter: function(value, options, row){
+			{ label: '创建时间', name: 'createTime', width: 200,align:'center' ,formatter: function(value, options, row){
 				return value!=null ?new Date(parseInt(value)): " ";
 			}}                   
         ],
@@ -21,7 +22,7 @@ $(function () {
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
-        rownumWidth: 25, 
+        rownumWidth: 45, 
         autowidth:true,
         multiselect: true,
         multiboxonly: true,

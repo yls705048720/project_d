@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-	<classPathEntry
+	<!--<classPathEntry
 		location="C:\Users\YLS\.m2\repository\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" />
-
+	-->
+	<classPathEntry
+		location="C:\Users\Lian Shan Yang\.m2\repository\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" />
+		
 	<context id="project_d" targetRuntime="MyBatis3">
 
 		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/project_d"
@@ -22,7 +25,31 @@
 
 		<javaClientGenerator targetPackage="com.yls.bus.sys.dao.mapper"
 			targetProject="project_d" type="XMLMAPPER" />
-
+			
+		  <table schema="" catalog="" tableName="schedule_job" domainObjectName="ScheduleJob" 
+			> <columnOverride column="job_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="bean_name" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="method_name" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="params" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="cron_expression" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="status" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="remark" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="create_time" javaType="java.util.Date"
+			/> </table>
+			
+			
+			<table schema="" catalog="" tableName="schedule_job_log" domainObjectName="ScheduleJobLog" 
+			>  <columnOverride column="log_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="job_id" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="bean_name" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="method_name" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="params" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="error" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="status" javaType="java.lang.Integer" jdbcType="INT" 
+			/> <columnOverride column="times" javaType="java.lang.String" jdbcType="VARCHAR" 
+			/> <columnOverride column="create_time" javaType="java.util.Date"
+			/> </table>
+			
 		<!-- <table schema="" catalog="" tableName="sys_user" domainObjectName="SysUser" 
 			> <columnOverride column="USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="USERNAME" javaType="java.lang.String" jdbcType="VARCHAR" 
@@ -31,11 +58,13 @@
 			/> <columnOverride column="MOBILE" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="STATUS" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="CREATE_TIME" javaType="java.util.Date" /> </table> 
+			
 			<table schema="" catalog="" tableName="sys_role" domainObjectName="SysRole" 
 			> <columnOverride column="role_id" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="role_name" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="remark" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="create_time" javaType="java.util.Date" /> </table> 
+			
 			<table schema="" catalog="" tableName="sys_menu" domainObjectName="SysMenu" 
 			> <columnOverride column="menu_id" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="parent_id" javaType="java.lang.String" jdbcType="VARCHAR" 
@@ -45,7 +74,9 @@
 			/> <columnOverride column="type" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="icon" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="order_num" javaType="java.lang.String" jdbcType="VARCHAR" 
-			/> </table> <table schema="" catalog="" tableName="sys_role_menu" domainObjectName="SysRoleMenu" 
+			/> </table> 
+			
+			<table schema="" catalog="" tableName="sys_role_menu" domainObjectName="SysRoleMenu" 
 			> <columnOverride column="id" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="role_id" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="menu_id" javaType="java.lang.String" jdbcType="VARCHAR" 
@@ -53,24 +84,28 @@
 			> <columnOverride column="id" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="user_id" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="role_id" javaType="java.lang.String" jdbcType="VARCHAR" 
-			/> </table> <table schema="" catalog="" tableName="sys_config" domainObjectName="SysConfig" 
+			/> </table> 
+			
+			<table schema="" catalog="" tableName="sys_config" domainObjectName="SysConfig" 
 			> <columnOverride column="id" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="key" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="value" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="status" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="remark" javaType="java.lang.String" jdbcType="VARCHAR" 
-			/> </table> -->
-		<!-- <table schema="" catalog="" tableName="v_sys_user_menu"
-			domainObjectName="SysUserMenuView">
-			<columnOverride column="user_id" javaType="java.lang.String"
-				jdbcType="VARCHAR" />
-			<columnOverride column="menu_perms" javaType="java.lang.String"
-				jdbcType="VARCHAR" />
-			<columnOverride column="menu_id" javaType="java.lang.String"
-				jdbcType="VARCHAR" />
-		</table>
-		 -->
-			<table schema="" catalog="" tableName="v_sys_menu" domainObjectName="SysMenuViwe" 
+			/> </table>
+			 -->
+			<!-- 
+			<table schema="" catalog="" tableName="v_sys_user_menu"
+				domainObjectName="SysUserMenuView">
+				<columnOverride column="user_id" javaType="java.lang.String"
+					jdbcType="VARCHAR" />
+				<columnOverride column="menu_perms" javaType="java.lang.String"
+					jdbcType="VARCHAR" />
+				<columnOverride column="menu_id" javaType="java.lang.String"
+					jdbcType="VARCHAR" />
+			</table>
+		 	-->
+		<!-- <table schema="" catalog="" tableName="v_sys_menu" domainObjectName="SysMenuViwe" 
 			> <columnOverride column="menu_id" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="parent_id" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="name" javaType="java.lang.String" jdbcType="VARCHAR" 
@@ -81,5 +116,6 @@
 			/> <columnOverride column="order_num" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/> <columnOverride column="parent_name" javaType="java.lang.String" jdbcType="VARCHAR" 
 			/>  </table>
+			 -->
 	</context>
 </generatorConfiguration>

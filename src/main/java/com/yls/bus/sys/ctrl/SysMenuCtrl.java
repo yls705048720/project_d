@@ -9,13 +9,12 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.yls.bus.sys.dao.entity.SysMenu;
 import com.yls.bus.sys.service.SysMenuService;
@@ -32,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
  * @author YLS
  *
  */
-@Controller
+@RestController
 @RequestMapping("/sysMenu")
 public class SysMenuCtrl extends AbstractCtrl {
 
@@ -40,7 +39,6 @@ public class SysMenuCtrl extends AbstractCtrl {
 	private SysMenuService sysMenuService;
 	
 	@ApiOperation(value="获取菜单列表", notes="主页导航菜单，树形结构数据")
-	@ResponseBody
 	@RequestMapping(value="/user",method=RequestMethod.GET)
 	public YlsResult getUserMenu(){
 		
@@ -51,7 +49,6 @@ public class SysMenuCtrl extends AbstractCtrl {
 	@ApiOperation(value="菜单列表 分页", notes="分页")
 	@ApiImplicitParam(name="param", value="分页查询相关数据", required=true, dataType="Map")
 	@RequiresPermissions("sys:menu:list")
-	@ResponseBody
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public YlsResult list(@RequestParam Map<String, String> param){
 		
@@ -62,7 +59,6 @@ public class SysMenuCtrl extends AbstractCtrl {
 	@ApiOperation(value="删除菜单", notes="系统菜单不能删除")
 	@ApiImplicitParam(name="menuIds", value="菜单Id", required=true, dataType="Array")
 	@RequiresPermissions("sys:menu:delete")
-	@ResponseBody
 	@RequestMapping(value="delete",method=RequestMethod.POST)
 	public YlsResult delete(@RequestBody String [] menuIds){
 		
@@ -77,7 +73,6 @@ public class SysMenuCtrl extends AbstractCtrl {
 	
 	@ApiOperation(value="获取zTree所需数据", notes="")
 	@RequiresPermissions("sys:menu:select")
-	@ResponseBody
 	@RequestMapping(value="/select",method=RequestMethod.GET)
 	public YlsResult forTree(){
 		
@@ -95,7 +90,6 @@ public class SysMenuCtrl extends AbstractCtrl {
 	}
 	
 	@ApiOperation(value="角色授权菜单", notes="")
-	@ResponseBody
 	@RequestMapping(value="/perms", method=RequestMethod.GET)
 	public YlsResult getPerms(){
 		return YlsResult.ok()
@@ -106,7 +100,6 @@ public class SysMenuCtrl extends AbstractCtrl {
 	@ApiOperation(value="获取菜单详细信息", notes="")
 	@ApiImplicitParam(name="menuId", value="菜单Id", required=true, dataType="String")
 	@RequiresPermissions("sys:menu:info")
-	@ResponseBody
 	@RequestMapping(value="/info/{menuId}",method=RequestMethod.GET)
 	public YlsResult getMune(@PathVariable String menuId){
 		
@@ -117,7 +110,6 @@ public class SysMenuCtrl extends AbstractCtrl {
 	@ApiImplicitParam(name="sysMenu", value="菜单实体",
 									required=true,dataType="com.yls.bus.sys.dao.entity.SysMenu")
 	@RequiresPermissions("sys:menu:save")
-	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public YlsResult save(@RequestBody SysMenu sysMenu){
 		
@@ -130,7 +122,6 @@ public class SysMenuCtrl extends AbstractCtrl {
 	@ApiImplicitParam(name="sysMenu", value="菜单实体",required=true
 															,dataType="com.yls.bus.sys.dao.entity.SysMenu")	
 	@RequiresPermissions("sys:menu:update")
-	@ResponseBody
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public YlsResult update(@RequestBody SysMenu sysMenu){
 		

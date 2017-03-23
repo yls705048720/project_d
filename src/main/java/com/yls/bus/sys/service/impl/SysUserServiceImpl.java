@@ -218,7 +218,6 @@ public class SysUserServiceImpl implements SysUserService {
 	 * 删除用户与角色关系
 	 * @param userId
 	 */
-	@Transactional
 	private void delete(String userId) {
 		// TODO Auto-generated method stub
 		SysUserRoleExample sysUserRoleExample = new SysUserRoleExample();

@@ -119,7 +119,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 	 * @param roleId
 	 * @param menuIdList
 	 */
- 	@Transactional 
 	public void saveOrUpdate(String roleId, List<String> menuIdList) {
 		// TODO Auto-generated method stub
  		SysRoleMenuExample sysRoleMenuExample = new SysRoleMenuExample();

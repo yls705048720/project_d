@@ -28,6 +28,7 @@ import com.yls.bus.sys.service.SysUserService;
 import com.yls.freamwork.utils.YlsShiroUtils;
 
 /**
+ * 验证与授权
  * @author YLS
  *
  */

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Timed Task</title>
+#parse("sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn" style="height:34px;">
+			<div class="form-group col-sm-2">
+				<input type="text" class="form-control" v-model="q.beanName" @keyup.enter="query" placeholder="Bean Name">
+			</div>
+			<a class="btn btn-default" @click="query">Query</a>
+			#if($shiro.hasPermission("sys:schedule:save"))
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;Add</a>
+			#end
+			#if($shiro.hasPermission("sys:schedule:update"))
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;Update</a>
+			#end
+			#if($shiro.hasPermission("sys:schedule:delete"))
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;Delete</a>
+			#end
+			#if($shiro.hasPermission("sys:schedule:pause"))
+			<a class="btn btn-primary" @click="pause"><i class="fa fa-pause"></i>&nbsp;Pause</a>
+			#end
+			#if($shiro.hasPermission("sys:schedule:resume"))
+			<a class="btn btn-primary" @click="resume"><i class="fa fa-play"></i>&nbsp;Resume</a>
+			#end
+			#if($shiro.hasPermission("sys:schedule:run"))
+			<a class="btn btn-primary" @click="runOnce"><i class="fa fa-arrow-circle-right"></i>&nbsp;Run NOW</a>
+			#end
+			#if($shiro.hasPermission("sys:schedule:log"))
+			<a class="btn btn-danger" style="float:right;" href="schedule_log.html">Log List</a>
+			#end
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+	</div>
+	
+	<div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">Bean Name</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.beanName" placeholder="spring bean Name£¬such as: testTask"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">Method Name</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.methodName" placeholder="Method Name"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">Parameter</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.params" placeholder="Parameter"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">Cron Expression</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.cronExpression" placeholder="Such as : 0 0 12 * * ?"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">Remark</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="schedule.remark" placeholder="Remark"/>
+			    </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="Submmit"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="Back"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="${rc.contextPath}/js/sys/schedule.js?_${date.systemTime}"></script>
+</body>
+</html>

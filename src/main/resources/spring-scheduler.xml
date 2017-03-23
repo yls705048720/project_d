@@ -42,7 +42,7 @@
 		<property name="schedulerName" value="Project_D_Scheduler" />
 
 		<!--必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动 -->
-		<property name="startupDelay" value="60" />
+		<property name="startupDelay" value="30" />
 
 		<property name="applicationContextSchedulerContextKey" value="applicationContextKey" />
 

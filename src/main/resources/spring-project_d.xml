@@ -4,10 +4,13 @@
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans 
         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
-
+        	 
 	<import resource="classpath:spring-jdbc.xml" />
 	<import resource="classpath:spring-shiro.xml" />
 	<import resource="classpath:spring-redis.xml"/>
 	<import resource="classpath:spring-scheduler.xml"/>
-
+	
+	<!-- 配置SpringContextUtils Bean -->
+	<bean id="ylsSpringContextUtils" class="com.yls.freamwork.utils.YlsSpringConextUtils"></bean>
+	
 </beans>

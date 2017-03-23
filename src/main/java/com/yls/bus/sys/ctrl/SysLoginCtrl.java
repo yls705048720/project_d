@@ -43,6 +43,12 @@ public class SysLoginCtrl {
 	@Autowired
 	private Producer producer;
 
+	/**
+	 * 也可以在Web.xml中配置servlet
+	 * @param response
+	 * @throws SecurityException
+	 * @throws IOException
+	 */
 	@ApiOperation(value="获取验证码",notes="")
 	@RequestMapping(value="/captcha",method=RequestMethod.GET)
 	public void captcha(HttpServletResponse response) throws SecurityException, IOException{

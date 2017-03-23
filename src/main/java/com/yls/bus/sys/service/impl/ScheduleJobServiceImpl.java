@@ -6,7 +6,10 @@ package com.yls.bus.sys.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang.StringUtils;
+import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import com.yls.bus.sys.dao.entity.ScheduleJobExample;
 import com.yls.bus.sys.dao.mapper.ScheduleJobMapper;
 import com.yls.bus.sys.service.ScheduleJobService;
 import com.yls.freamwork.utils.YlsConstants.ScheduleStatus;
+import com.yls.freamwork.utils.YlsIdGenerator;
 import com.yls.freamwork.utils.YlsScheduleUtils;
 
 /**
@@ -33,6 +37,28 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
 	@Autowired
 	private ScheduleJobMapper scheduleJobMapper;
 
+	/**
+	 * 
+	 *  关于在spring  容器初始化 bean 和销毁前所做的操作定义方式有三种：
+	 *  第一种：通过@PostConstruct 和 @PreDestroy 方法 实现初始化和销毁bean之前进行的操作
+     *  第二种是：通过 在xml中定义init-method 和  destory-method方法
+     *  第三种是： 通过bean实现InitializingBean和 DisposableBean接口
+	 *  项目启动时，初始化定时器
+	 */
+	@PostConstruct
+	public void init(){
+		List<ScheduleJob> scheduleJobList = scheduleJobMapper.selectByExample(null);
+		for(ScheduleJob scheduleJob : scheduleJobList){
+			CronTrigger cronTrigger = YlsScheduleUtils.getCronTrigger(scheduler, scheduleJob.getJobId());
+            //如果不存在，则创建
+            if(cronTrigger == null) {
+                YlsScheduleUtils.createScheduleJob(scheduler, scheduleJob);
+            }else {
+                YlsScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
+            }
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.yls.bus.sys.service.ScheduleJobService#queryObject(java.lang.String)
 	 */
@@ -86,6 +112,7 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
 	@Transactional
 	public void save(ScheduleJob scheduleJob) {
 		// TODO Auto-generated method stub
+		scheduleJob.setJobId(YlsIdGenerator.getUUID());
 		scheduleJobMapper.insert(scheduleJob);
 	}
 
@@ -132,6 +159,8 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
 	@Override
 	public void run(String[] jobIds) {
 		// TODO Auto-generated method stub
+		//刚添加的任务要理解执行 需重复初始化
+		init();
     	for(String jobId : jobIds){
     		YlsScheduleUtils.run(scheduler, queryObject(jobId));
     	}

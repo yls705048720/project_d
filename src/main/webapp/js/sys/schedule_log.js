@@ -9,7 +9,7 @@ $(function () {
 			{ label: '方法名称', name: 'methodName', width: 60 },
 			{ label: '参数', name: 'params', width: 60 },
 			{ label: '状态', name: 'status', width: 50, formatter: function(value, options, row){
-				return value === 0 ? 
+				return value == 0 ? 
 					'<span class="label label-success">成功</span>' :
 					'<span class="label label-danger pointer" onclick="vm.showError('+row.logId+')">失败</span>';
 			}},
@@ -17,13 +17,15 @@ $(function () {
 			{ label: '执行时间', name: 'createTime', width: 80 }
         ],
 		viewrecords: true,
-        height: 385,
+        height: 500,
         rowNum: 10,
 		rowList : [10,30,50,100,200],
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
         multiselect: false,
+        multiboxonly: true,
+        multiselectWidth:40,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",

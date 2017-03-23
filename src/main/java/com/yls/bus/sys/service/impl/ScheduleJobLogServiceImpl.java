@@ -15,12 +15,13 @@ import com.yls.bus.sys.dao.entity.ScheduleJobLog;
 import com.yls.bus.sys.dao.entity.ScheduleJobLogExample;
 import com.yls.bus.sys.dao.mapper.ScheduleJobLogMapper;
 import com.yls.bus.sys.service.ScheduleJobLogService;
+import com.yls.freamwork.utils.YlsIdGenerator;
 
 /**
  * @author Lian Shan Yang
  *
  */
-@Service
+@Service("scheduleJobLogService")
 public class ScheduleJobLogServiceImpl implements ScheduleJobLogService {
 	
 	@Autowired
@@ -77,6 +78,7 @@ public class ScheduleJobLogServiceImpl implements ScheduleJobLogService {
 	@Transactional
 	public void save(ScheduleJobLog log) {
 		// TODO Auto-generated method stub
+		log.setLogId(YlsIdGenerator.getUUID());
 		scheduleJobLogMapper.insert(log);
 	}
 

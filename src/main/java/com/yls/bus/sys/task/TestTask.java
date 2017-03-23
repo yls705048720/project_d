@@ -14,7 +14,7 @@ import com.yls.bus.sys.service.SysUserService;
 
 /**
  * @author Lian Shan Yang
- *
+ * 注解需要有配置Service bean的名称方便查询
  */
 
 @Component("testTask")

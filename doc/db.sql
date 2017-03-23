@@ -147,7 +147,7 @@ CREATE TABLE `schedule_job_log` (
   `params` varchar(2000) DEFAULT NULL COMMENT '参数',
   `status` varchar(4) NOT NULL COMMENT '任务状态    0：成功    1：失败',
   `error` varchar(2000) DEFAULT NULL COMMENT '失败信息',
-  `times` int(11) NOT NULL COMMENT '耗时(单位：毫秒)',
+  `times` varchar(100) NOT NULL COMMENT '耗时(单位：毫秒)',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`log_id`),
   KEY `job_id` (`job_id`)

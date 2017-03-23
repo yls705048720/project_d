@@ -25,6 +25,9 @@ import com.yls.bus.sys.service.ScheduleJobLogService;
  */
 public class YlsScheduleJob extends QuartzJobBean {
 
+//	@Autowired
+//	private ScheduleJobLogService scheduleJobLogService;
+	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	/**
 	 * “Ï≤Ω÷¥––

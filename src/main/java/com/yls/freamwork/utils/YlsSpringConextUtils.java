@@ -7,6 +7,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+
 /**
  * 
  * Spring Context π§æﬂ¿‡
@@ -20,6 +21,7 @@ public class YlsSpringConextUtils implements ApplicationContextAware{
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		// TODO Auto-generated method stub
+		System.out.println(applicationContext);
 		YlsSpringConextUtils.applicationContext =  applicationContext;
 	}
 	/**
@@ -29,6 +31,7 @@ public class YlsSpringConextUtils implements ApplicationContextAware{
 	 */
 	public static Object getBean(String name) {
 		System.out.println(name);
+		System.out.println(applicationContext);
 		return applicationContext.getBean(name);
 	}
 	/**

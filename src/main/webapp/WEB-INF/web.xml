@@ -14,6 +14,7 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+  
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -106,7 +107,7 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-			
+				
 	<!-- druid -->
 	<servlet>
       <servlet-name>DruidStatView</servlet-name>
@@ -116,21 +117,16 @@
       <servlet-name>DruidStatView</servlet-name>
       <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
-    
-	<!-- 监听器 -->
+    	    
+	 <!-- 监听器 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.util.WebAppRootListener</listener-class>
 	</listener>
-
-	<!-- 
-	<listener> 
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class> 
-	</listener>
-	-->
-	    
+	
+	
     <!-- 500 页面 -->
 	<error-page>  
 	    <error-code>500</error-code>  

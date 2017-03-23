@@ -16,13 +16,15 @@ $(function () {
 			}}
         ],
 		viewrecords: true,
-        height: 385,
+        height: 500,
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
         multiselect: true,
+        multiboxonly: true,
+        multiselectWidth:40,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",

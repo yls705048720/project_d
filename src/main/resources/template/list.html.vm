@@ -14,13 +14,13 @@ $header
 	<div v-show="showList">
 		<div class="grid-btn">
 			$save
-			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;add</a>
 			$end
 			$update
-			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;update</a>
 			$end
 			$delete
-			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;delete</a>
 			$end
 		</div>
 	    <table id="jqGrid"></table>
@@ -42,8 +42,8 @@ $header
 		#end
 			<div class="form-group">
 				<div class="col-sm-2 control-label"></div> 
-				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
-				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="sumit"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="back"/>
 			</div>
 		</form>
 	</div>
